@@ -1,0 +1,16 @@
+$background-color: gray;
+$hover-color: lightskyblue;
+
+.ToggleButton{
+    cursor: pointer;
+}
+
+.ToggleButton.off:hover,
+.ToggleButton.on:hover,
+.ToggleButton:hover{
+    background-color: $hover-color;
+}
+
+.ToggleButton.on {
+    background-color: $background-color;
+}

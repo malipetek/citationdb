@@ -1,24 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import HomePage from "./HomePage";
+import PublicationPage from "./PublicationPage";
+// import ResourceList from "./ResourceList";
+// import FootnoteList from "./FootnoteList";
+// import AuthorList from "./AuthorList";
+// import PublicationList from "./PublicationList";
+
+import ResourcePage from "./ResourcePage";
+import AuthorPage from "./AuthorPage";
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { resource, footnote, author, publication } from "./Data/index";
+
+import "./App.scss";
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+
+        <header>
+
+          <h1>
+            <Link to="/">Citation Database</Link>
+          </h1>
+
+        </header>
+
+
+        <Route exact path="/" render={() => <HomePage />} />
+        {/* <Route exact path="/resources" render={() => <ResourceList resources={resource.all()} />} />
+        <Route exact path="/publications" render={() => <PublicationList publications={publication.all()} />} />
+        <Route exact path="/authors" render={() => <AuthorList authors={author.all()} />} />
+        <Route exact path="/footnotes" render={() => <FootnoteList footnotes={footnote.all()} />} />
+        */}
+        <Route path="/publications/:id" component={PublicationPage} />
+        {/* <Route path="/resources/:id" component={ResourcePage} />
+        <Route path="/authors/:id" component={AuthorPage} /> */}
+
+      </Router>
     </div>
   );
 }
