@@ -7,7 +7,6 @@ export default class FootnoteList extends React.Component {
         return (
             <div className="PublicationList">
                 {(this.props.publications||[]).map((r,i) => {   
-                    
                     return <div key={i}>
                         <Link to={`/publications/${r.id}`}>
                             {r.title} :: {r.publisher} :: {r.date}

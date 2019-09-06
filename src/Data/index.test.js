@@ -34,7 +34,7 @@ test ("Can get footnotes by publication ID", () =>{
 
 test("Can get footnotes by resource ID", () =>{
 
-    // expect(Data.footnote.byResource("HVT-0001").length).toBeGreaterThan(0);
+    expect(Data.footnote.byResource("HVT-0001").length).toBeGreaterThan(0);
 })
 
 test("Can get number of resources cited by an author", ()=>{

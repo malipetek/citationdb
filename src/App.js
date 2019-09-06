@@ -9,7 +9,7 @@ import PublicationPage from "./PublicationPage";
 import ResourcePage from "./ResourcePage";
 import AuthorPage from "./AuthorPage";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { resource, footnote, author, publication } from "./Data/index";
 
 import "./App.scss";
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <Router basename="/">
 
         <header>
 
@@ -37,8 +37,8 @@ function App() {
         <Route exact path="/footnotes" render={() => <FootnoteList footnotes={footnote.all()} />} />
         */}
         <Route path="/publications/:id" component={PublicationPage} />
-        {/* <Route path="/resources/:id" component={ResourcePage} />
-        <Route path="/authors/:id" component={AuthorPage} /> */}
+         <Route path="/resources/:id" component={ResourcePage} />
+        <Route path="/authors/:id" component={AuthorPage} /> 
 
       </Router>
     </div>

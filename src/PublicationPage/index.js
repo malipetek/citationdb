@@ -1,7 +1,8 @@
 import React from 'react';
 // import ResultList from "../ResultList";
 import Data from "../Data";
-import FootnoteList from "../FootnoteList";
+// import FootnoteList from "../FootnoteList";
+import ResultList from "../ResultList";
 
 export default class PublicationPage extends React.Component {
 
@@ -24,7 +25,8 @@ export default class PublicationPage extends React.Component {
 
 
                 <section>
-                    <FootnoteList footnotes={footnotes}></FootnoteList>
+                    {/* <FootnoteList footnotes={footnotes}></FootnoteList> */}
+                    <ResultList items={footnotes}></ResultList>
                 </section>
             </div>
 

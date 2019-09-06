@@ -1,11 +1,17 @@
 import React from 'react';
 import Data from "../../Data";
 import { Link } from "react-router-dom";
+import entity from "../../Data/enums";
 
 class HeaderLink extends React.Component {
 
     render(){
-        const term = this.props.type + "s"
+        const term = this.props.type + "s";
+
+        if (this.props.type === entity.footnote){
+            return (<span>{this.props.header}</span>)
+        }
+
         return <Link 
             to={`/${term}/${this.props.item.id}`}
             >{this.props.header}</Link>
@@ -26,6 +32,7 @@ class ItemHeader extends React.Component {
 }
 
 class FootnoteFooter extends React.Component {
+    
     render() {
         return (
             <div>
@@ -62,7 +69,6 @@ class ResourceFooter extends React.Component {
                     {Data.footnote.byResource(this.props.item.id).length} citations
                 </div>
             </div>
-
         );
     }
 }

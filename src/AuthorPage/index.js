@@ -1,26 +1,37 @@
 import React from 'react';
-import Data from "../Data/index";
-import { Page404 } from  "../ErrorPages/index";
-import PublicationList from "../PublicationList";
+// import ResultList from "../ResultList";
+import Data from "../Data";
+// import PublicationList from "../PublicationList";
+import ResultList from "../ResultList";
 
-export default class ResourcePage extends React.Component {
+export default class AuthorPage extends React.Component {
 
-    render(){
-        const id = this.props.match.params.id;
-        const r = Data.author.dictionary()[id];
-        const publications = Data.publication.filter(item => item["author.id"] === id);
 
-        if (!r){
-            return Page404(this.props.location.pathname);
-        }
+    render() {
+
+        const id = this.props.match.params.id,
+            item = Data.publication.byId(id);
+        //     author = Data.author.byId(item["author.id"]),
+        //     footnotes = Data.footnote.byPublication(id);
+
+        const publications = Data.publication.byAuthor(id)
 
         return (
-            <div className="ResourcePage">
-                <h1>{r.name}</h1>
-                <PublicationList publications={publications} />
-                
-            </div>
-        );
-    }
+            <div className="PublicationPage">
+                <section>
+                    <h1>{item.header}</h1>
+                    <div>
+                        {/* Author: {author.name} */}
+                    </div>
+                </section>
 
+
+                <section>
+                    <ResultList items={publications}></ResultList>
+                    {/* <PublicationList publications={publications}></PublicationList> */}
+                </section>
+            </div>
+
+        )
+    }
 }

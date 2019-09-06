@@ -23,9 +23,9 @@ export default class HomePage extends React.Component {
     }
 
     setSearchTerm(term) {
-        console.log("Set search term " + term)
         this.setState({ searchTerm: term })
     }
+
     toggleFactory(label) {
         return () => {
 
@@ -40,7 +40,6 @@ export default class HomePage extends React.Component {
 
     render() {
         const items = Data.search(this.state);
-        console.log("items", items)
         return (<div className="HomePage">
             <div className="SearchArea">
                 <Search

@@ -1,8 +1,18 @@
+/** 
+ * Data API
+ * 
+ * @module Data
+ * @exports Data.author
+ */
 import resource from "./resource";
 import footnote from "./footnote";
 import publication from "./publication";
 import author from "./author";
 
+/**
+ * Search authors, publications and resources
+ * @param {Object} options 
+ */
 function search(options) {
 
     options = options || {};
@@ -28,7 +38,6 @@ function search(options) {
     searchEntity("author", "name", author)
     searchEntity("resource", "title", resource)
     searchEntity("publication", "title", publication)
-
 
     return results;
 }
