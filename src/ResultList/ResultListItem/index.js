@@ -130,10 +130,10 @@ class PublicationFooter extends React.Component {
                 <div>
                     <PillTray title="resources cited" items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
                 </div>
-                <div>
+                {/* <div>
                     {this.props.item.date ? this.props.item.date + ", " : (null)}
                     {this.props.item.publisher ? this.props.item.publisher : (null)}
-                </div>
+                </div> */}
 
             </div>
 
