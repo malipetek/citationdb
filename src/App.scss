@@ -1,9 +1,18 @@
-$color-publication: teal;
-$color-resource: orange;
-$color-author: steelblue;
+$color-publication: #0d99aa;
+$color-resource: #f9be00;
+$color-author: #ca6251;
+
+body {background-color: #f5f5f5;}
 
 .App{
 
+  a {
+    text-decoration: none;
+    color: navy;
+  }
+  a:hover{
+    color: red;
+  }
   .ProfileList{
     .ProfileListItem{
       border-top: 1px solid gray;
@@ -79,24 +88,31 @@ $color-author: steelblue;
   }
 
   .ResultListItem.publication {
-    .left-end{
-      background-color: $color-publication;
-    }
+    border-color: $color-publication;
+    // .left-end{
+    //   background-color: $color-publication;
+    // }
   }
 
   .ResultListItem.author {
-    .left-end{
-      background-color: $color-author;
-    }
+    border-color: $color-author;
+    // .left-end{
+    //   background-color: $color-author;
+    // }
   }
 
-  .ResultListItem.resource {
-    .left-end{
-      background-color: $color-resource;
-    }
+  .ResultListItem.resource,
+  .ResultListItem.footnote {
+
+    border-color: $color-resource;
+    // .left-end{
+    //   background-color: $color-resource;
+    // }
   }
 
   .ResultListItem{
+
+    border-left: 10px solid white;
 
     header {
       small.result-type{
@@ -108,13 +124,16 @@ $color-author: steelblue;
 
     display: flex;
     margin-top: 10px;
-    border-bottom: 1px solid lightgray;
+    //border-bottom: 1px solid lightgray;
+    // box-shadow: 1px 1px 10px #aaa;
+    background-color: white;
+
     margin-bottom: 10px;
-    // border-radius: 8px;
+    border-radius: 8px;
     // box-shadow: 1px 1px 10px lightgray;
 
     .left-end{
-      width: 80px;
+      width: 10px;
       // border-radius: 10px 0px 0px 10px;
     }
 
@@ -122,6 +141,8 @@ $color-author: steelblue;
 
     .content-area{
       padding: 14px;
+      flex: auto;
+      align-items: center;
       header h3{
         margin: 0px;
         padding: 0px;

@@ -8,7 +8,7 @@ import entity from "./enums";
  */
 class FootnoteAPIEndpoint extends BasicAPIEndpoint{
     constructor(props){
-        super(props, x=>x["id"], _=>entity.footnote);
+        super(props, x=>publication.byId(x["publication.id"]), _=>entity.footnote);
         this.byPublication = this.byPublication.bind(this);
         this.byAuthor = this.byAuthor.bind(this);
     }
