@@ -1,0 +1,71 @@
+@import "./fonts";
+@import "./colors";
+
+body {
+  background-color: $color-backgroundgray;
+  font-family: $font-sans;
+}
+
+.CitationDB {
+  font-family: $font-sans;
+
+  section {
+      width: 80%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+
+
+  .module-box .title{
+    font-family:$font-serif;
+  }
+
+  .ResultListItem.footnote {
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 18px;
+
+    .Button{
+      min-width: 80px;
+    }
+  }
+
+  .PublicationHistogram rect.bar{
+    fill: $color-publication-on;
+  }
+
+  .HomePage {
+
+    .TextInput {
+
+      text-align: center;
+  
+      input {
+        background-color: $color-white;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-link-off;
+  }
+
+  a:hover {
+    color: $color-link-on;
+  }
+
+  .ToggleButton.publications.on .Button {
+    background-color: $color-publication-on;
+  }
+
+  .ToggleButton.resources.on .Button {
+    background-color: $color-resource-on;
+  }
+
+  .ToggleButton.authors.on .Button {
+    background-color: $color-author-on;
+  }
+}

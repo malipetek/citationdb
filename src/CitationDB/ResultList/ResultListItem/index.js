@@ -3,6 +3,7 @@ import Data from "../../Data";
 import { Link } from "react-router-dom";
 import entity from "../../Data/enums";
 import "../style/main.scss";
+import Button from "../../Button";
 
 class PillTray extends React.Component {
     render() {
@@ -154,8 +155,8 @@ class Footer extends React.Component {
 export default class ResultListItem extends React.Component {
     render() {
         return (
-            <section className={`ResultListItem ${this.props.type}`}>
-                <div className="left-end"></div>
+            <div className={`ResultListItem ${this.props.type}`}>
+                {/* <div className="left-end"></div> */}
                 <div className="content-area">
                     <header>
                         <ItemHeader {...this.props}></ItemHeader>
@@ -166,10 +167,13 @@ export default class ResultListItem extends React.Component {
                 </div>
                 {
                     this.props.type === "footnote" ? 
-                    (<div className="button"> <a target="_blank" href={this.props.item.uri}>view</a></div>) 
+                    (<a target="_blank" href={this.props.item.uri}>
+                        {/* <div className="button"> view</div> */}
+                        <Button text="View"></Button>
+                        </a>) 
                     : (null)
                 }
-            </section>
+            </div>
         )
     }
 }

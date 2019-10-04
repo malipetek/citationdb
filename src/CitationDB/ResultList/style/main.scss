@@ -1,0 +1,206 @@
+@import "../../style/colors";
+
+.HomePage .SearchArea,
+.ResultList{
+  
+  // width: 80%;
+  // max-width: 1200px;
+  // margin-left: auto;
+  // margin-right: auto;
+
+
+}
+
+.ResultListItem.publication {
+  border-color: $color-publication-off;
+}
+
+.ResultListItem.author {
+  border-color: $color-author-off;
+}
+
+.ResultListItem.resource,
+.ResultListItem.footnote {
+  border-color: $color-resource-off;
+
+  display: flex;
+
+  .Button {
+    background-color: $color-publication-off;
+    transition: background-color 1s;
+  }
+
+}
+
+.ResultListItem.publication:hover {
+  border-color: $color-publication-on;
+}
+
+.ResultListItem.author:hover {
+  border-color: $color-author-on;
+}
+
+.ResultListItem.resource:hover,
+.ResultListItem.footnote:hover {
+  border-color: $color-resource-on;
+  .Button {
+    background-color: $color-publication-on;
+  }
+
+}
+
+.ResultListItem:hover {
+  box-shadow: $drop-shadow;
+
+  .pill-tray-wrapper.resources .pill {
+    border-color: $color-resource-on;
+  }
+
+  .pill-tray-wrapper.publications .pill {
+    border-color: $color-publication-on;
+  }
+
+  .pill-tray-wrapper.author .pill {
+    border-color: $color-author-on;
+  }
+
+  .pill-tray-wrapper .pill{
+    max-width: 1000px;
+    transition: max-width 1s;
+  }
+}
+
+.ResultListItem {
+  border-left: 10px solid $color-white;
+  
+  /**
+   * Define the content formatting that's specific to this app
+   **/
+
+
+  header {
+    small.result-type {
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+
+  .content-area {
+    padding: 14px;
+    flex: auto;
+    align-items: center;
+    header h3 {
+      margin: 0px;
+      padding: 0px;
+      font-size: 18px;
+      line-height: 18px;
+      margin-bottom: 6px;
+    }
+  }
+
+  footer {
+    font-size: 14px;
+    color: #444;
+
+  }
+
+  .pill-tray {
+    display: flex;
+    flex-wrap: wrap;
+
+    .pill {
+      background-color: $color-backgroundgray;
+      transition: border-color 3s;
+      margin: 0px 3px;
+      padding: 0px 4px;
+      // border: 1px solid gray;
+      border-radius: 2px;
+      font-size: 11px;
+      max-width: 100px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .pill-tray-wrapper .pill {
+    border-left: 3px solid white;
+  }
+
+  .pill-tray-wrapper.resources .pill {
+    border-color: $color-resource-off;
+  }
+
+  .pill-tray-wrapper.publications .pill {
+    border-color: $color-publication-off;
+  }
+
+  .pill-tray-wrapper.author .pill {
+    border-color: $color-author-off;
+  }
+
+  display: flex;
+
+  .ItemHeader {
+    font-weight: 700;
+    display: flex;
+    align-items: first baseline;
+    // text-decoration: underline;
+    margin-bottom: 11px;
+  }
+
+  .badge {
+    font-weight: 400;
+    font-size: 10px;
+    text-transform: uppercase;
+    // color: $color-textgray;
+    margin-right: 6px;
+    padding-right: 3px;
+  }
+
+  .HeaderLink {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  // .button {
+  //   display: flex;
+  //   padding: 0px 10px;
+  //   background-color: teal;
+  //   flex-direction: column;
+  //   justify-content: center;
+  //   font-size: small;
+  //   font-weight: normal;
+  //   text-align: center;
+  //   height: 30px;
+  //   margin: 10px;
+  //   border-radius: 8px;
+  //   font-weight: bold;
+
+  //   a {
+  //     color: white;
+  //     text-decoration: none;
+  //   }
+  // }
+}
+
+// .dialog-enter {
+//     opacity: 0.01;
+//     transform: scale(1.1);
+//   }
+
+//   .dialog-enter-active {
+//     opacity: 1;
+//     transform: scale(1);
+//     transition: all 10ms;
+//   }
+
+//   .dialog-exit {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+
+//   .dialog-exit-active {
+//     opacity: 0.01;
+//     transform: scale(1.1);
+//     transition: all 10ms;
+//   }

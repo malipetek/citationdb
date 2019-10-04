@@ -10,6 +10,7 @@ import publication from "./publication";
 import author from "./author";
 import uniqueArray from "./utils/uniqueArray";
 import FussyArray from "./utils/FussyArray";
+import * as summarize from "./summarize";
 
 /**
  * Search authors, publications and resources
@@ -66,5 +67,6 @@ export default {
     footnote,
     publication,
     resource,
-    search
+    search,
+    summarize
 }

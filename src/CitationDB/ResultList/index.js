@@ -1,6 +1,7 @@
 import React from 'react';
 import ResultListItem from "./ResultListItem";
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { Link } from "react-router-dom";
 
 import "./style/main.scss";
 
@@ -52,8 +53,8 @@ export default class ResultList extends React.Component {
             (a,b)=>{ return a.__header > b.__header ? 1 : -1}
             ).map((x, i) => {
                 return <ResultListItem 
-                item={x}
                 key={i}
+                item={x}
                 type={x.__type}
                 header={x.__header}
                 ></ResultListItem>
