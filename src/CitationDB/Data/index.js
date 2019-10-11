@@ -68,5 +68,5 @@ export default {
     publication,
     resource,
     search,
-    summarize
+    summarize,
 }

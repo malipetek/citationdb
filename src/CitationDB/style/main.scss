@@ -9,17 +9,36 @@ body {
 .CitationDB {
   font-family: $font-sans;
 
+  .BreadCrumb {
+    color: $color-textgray;
+    font-size: 14px;
+    // font-family: $font-serif;
+
+    .nav-separator,
+    .nav-item {
+      margin-right: 1em;
+      border: 1px solid $color-white;
+      padding: 2px;
+      border-radius: 3px;
+      vertical-align: middle;
+    }
+
+    .nav-item:hover,
+    .nav-separator:hover {
+      background-color: $color-white;
+    }
+  }
+
   section {
-      width: 80%;
+    position: relative;
+    width: 80%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-
   }
 
-
-  .module-box .title{
-    font-family:$font-serif;
+  .module-box .title {
+    font-family: $font-serif;
   }
 
   .ResultListItem.footnote {
@@ -27,21 +46,19 @@ body {
     justify-content: space-between;
     padding-right: 18px;
 
-    .Button{
+    .Button {
       min-width: 80px;
     }
   }
 
-  .PublicationHistogram rect.bar{
+  .PublicationHistogram rect.bar {
     fill: $color-publication-on;
   }
 
   .HomePage {
-
     .TextInput {
-
       text-align: center;
-  
+
       input {
         background-color: $color-white;
       }
@@ -55,6 +72,39 @@ body {
 
   a:hover {
     color: $color-link-on;
+  }
+
+  .page-tray {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .page-tray{
+    .SaveButton{
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .ResultListItem .SaveButton .Button{
+    border-radius: 0px 8px 0px 8px;
+  }
+  .SaveButton.save .Button {
+    background-color: $color-publication-off;
+  }
+
+  .SaveButton.save .Button:hover {
+    background-color: $color-publication-on;
+  }
+
+  .SaveButton.unsave .Button {
+    background-color: $color-author-off;
+  }
+
+  .SaveButton.unsave:hover .Button {
+    background-color: $color-author-on;
   }
 
   .ToggleButton.publications.on .Button {

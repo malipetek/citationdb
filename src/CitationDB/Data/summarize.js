@@ -1,7 +1,7 @@
 function yearCounts(items){
     var ret = {};
     items.forEach(item => {
-        if (Number(item.date) && (String(item.date).length == 4)) {
+        if (Number(item.date) && (String(item.date).length === 4)) {
             if (!ret[item.date]) { ret[item.date] = { count: 0, label: item.date } }
             ret[item.date].count += 1;
         }

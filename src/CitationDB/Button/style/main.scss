@@ -15,12 +15,14 @@
   font-weight: bold;
 }
 
+.Button,
 a .Button {
   cursor: pointer;
   color: white;
   text-decoration: none;
 }
 
+.Button:hover,
 a .Button:hover {
   // border: 1px solid black;
   box-shadow: $drop-shadow;

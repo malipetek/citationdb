@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import entity from "../../Data/enums";
 import "../style/main.scss";
 import Button from "../../Button";
+import SaveButton from "../../SaveButton";
 
 class PillTray extends React.Component {
     render() {
@@ -172,6 +173,9 @@ export default class ResultListItem extends React.Component {
                         <Button text="View"></Button>
                         </a>) 
                     : (null)
+                }
+                {
+                    <SaveButton type={this.props.type} id={this.props.item.id}/>
                 }
             </div>
         )

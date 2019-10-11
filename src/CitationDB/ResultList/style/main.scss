@@ -8,7 +8,6 @@
   // margin-left: auto;
   // margin-right: auto;
 
-
 }
 
 .ResultListItem.publication {
@@ -22,14 +21,12 @@
 .ResultListItem.resource,
 .ResultListItem.footnote {
   border-color: $color-resource-off;
-
   display: flex;
 
   .Button {
     background-color: $color-publication-off;
     transition: background-color 1s;
   }
-
 }
 
 .ResultListItem.publication:hover {
@@ -46,11 +43,12 @@
   .Button {
     background-color: $color-publication-on;
   }
-
 }
 
 .ResultListItem:hover {
   box-shadow: $drop-shadow;
+  border-width: 20px;
+  transition: border-width 0.2s;
 
   .pill-tray-wrapper.resources .pill {
     border-color: $color-resource-on;
@@ -120,8 +118,10 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      margin-top: 3px;
     }
   }
+
   .pill-tray-wrapper .pill {
     border-left: 3px solid white;
   }
