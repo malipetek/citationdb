@@ -1,16 +1,17 @@
 import React from 'react';
-// import ResultList from "../ResultList";
 import Data from "../Data";
-// import FootnoteList from "../FootnoteList";
 import ResultList from "../ResultList";
 import uniqueArray from "../Data/utils/uniqueArray";
+import { Link } from "react-router-dom";
+import TopWrapper from "../TopWrapper";
+import BigNumber from "../BigNumber";
 
 export default class PublicationPage extends React.Component {
 
-    render(){
+    render() {
         const id = this.props.match.params.id,
             item = Data.publication.byId(id),
-            author = Data.author.byId(item["author.id"]),
+            authors = [Data.author.byId(item["author.id"])],
             footnotes = Data.footnote.byPublication(id);
 
         const footnoteCount = footnotes.length,
@@ -18,31 +19,43 @@ export default class PublicationPage extends React.Component {
 
         return (
             <div className="PublicationPage">
+                {TopWrapper(
+                    <React.Fragment>
+                        <div className="left">
+                            <h1 className="title">{item.title}</h1>
+                            <div className="chunk">
+                                {authors.map((author, k) =>
+                                    <span key={k} className="metadata">
+                                        <Link  to={`/authors/${author.id}`}>{author.name ? `${author.name}` : (null)}</Link>
+                                        {"; "}
+                                    </span>
+                                )}
 
-                <section className="module-box">
+                                <span className="metadata">
+                                    {item.publisher ? `${item.publisher}` : (null)}
+                                </span>
 
-                    <h1 className="title">{item.title}</h1>
-                    <div>
-                        {author.name ? `by ${author.name}` : (null)}
-                    </div>
-                    <div>
-                        {item.date ? `${item.date}` : (null)} {item.publisher ? `, ${item.publisher}` : (null)}
-                    </div>
+                                <span className="metadata light">
+                                    {item.date ? `, ${item.date}` : (null)}
+                                </span>
+                            </div>
+                            <div className="metadata light">
+                                {item.uri ? <a rel="noopener noreferrer" target="_blank" href={item.uri}>Publication page</a> : (null)}
 
-
-                </section>
+                            </div>
+                        </div>
+                        <div className="right">
+                            <div className="bignumber-tray">
+                                <BigNumber label="citations" value={footnoteCount}></BigNumber>
+                                <BigNumber label="testimonies" value={resourceCount}></BigNumber>
+                            </div>
+                        </div>
+                    </React.Fragment>, { id, saveType: "publication" })
                 }
-                <section className="prose">
-                    This publication contains <span className="stat">{footnoteCount} citations</span>
-                    {resourceCount !== footnoteCount ? <span>{" "}to <span className="stat">{resourceCount} testimonies</span> </span> : (null)}.
-                </section>
-
-
-                <section>
-                    {/* <FootnoteList footnotes={footnotes}></FootnoteList> */}
+                <section className="column-wrapper">
                     <ResultList items={footnotes}></ResultList>
                 </section>
-            </div>
+            </div >
 
         )
     }

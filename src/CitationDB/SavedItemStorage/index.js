@@ -2,7 +2,7 @@ import Data from "../Data";
 
 // Set local or session storage;
 const storage = localStorage;
-let callbacks = [];
+let callbacks = {};
 
 function hasStorage(){
     try{
@@ -30,11 +30,15 @@ function getList(type){
 function setList(type, arr){
     if (!hasStorage()){ return; }
     storage.setItem(listID(type), JSON.stringify(arr));
-    callbacks.forEach( c => c());
+    Object.keys(callbacks).forEach( k => callbacks[k]());
 }
 
-function subscribe(f){
-    callbacks.push(f)
+
+function unsubscribe(key){
+    callbacks[key] = ()=>{};
+}
+function subscribe(key, f){
+    callbacks[key] = f;
 }
 
 function addItem(type, id){
@@ -68,7 +72,7 @@ function saveAuthor(id){ addItem(key.author, id)}
 
 function removeResource(id){ removeItem(key.resource, id)}
 function removePublication(id){ removeItem(key.publication, id)}
-function removeAuthor(id){ removeItem(key.author)}
+function removeAuthor(id){ removeItem(key.author, id)}
 
 export {
     getSavedAuthors,
@@ -80,6 +84,7 @@ export {
     removeAuthor,
     removePublication,
     removeResource,
-    subscribe
+    subscribe,
+    unsubscribe
     
 }

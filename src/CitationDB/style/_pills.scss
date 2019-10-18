@@ -1,0 +1,45 @@
+.pill-tray-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  .pill-tray-title {
+    margin-right: 2px;
+  }
+
+  .pill-tray {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    align-items: center;
+
+  }  
+  
+}
+
+.pill {
+  border-left: 3px solid white;
+  background-color: $color-backgroundgray;
+  transition: border-color 3s;
+  margin: 0px 3px;
+  padding: 0px 4px;
+  // border: 1px solid gray;
+  border-radius: 2px;
+  font-size: 11px;
+  max-width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 3px;
+}
+
+.resources .pill {
+  border-color: $color-resource-off;
+}
+
+.publications .pill {
+  border-color: $color-publication-off;
+}
+
+.authors .pill {
+  border-color: $color-author-off;
+}

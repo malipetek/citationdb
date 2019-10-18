@@ -19,7 +19,7 @@ export default class Search extends React.Component {
             <input 
             onChange={this.updateTerm}
             type="text" 
-            placeholder="Search..."></input>
+            placeholder="Search by author, title or testimony..."></input>
         </div>
         )
     }

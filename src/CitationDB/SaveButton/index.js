@@ -2,6 +2,9 @@ import React from "react";
 import Button from "../Button";
 import * as storage from "../SavedItemStorage";
 
+/**
+ * The author page
+ */
 export default class SaveButton extends React.Component {
 
     constructor(props) {
@@ -20,7 +23,6 @@ export default class SaveButton extends React.Component {
             this.removeItem = storage.removePublication;
             this.getSavedItems = storage.getSavedPublications;
         } else {
-            // console.log("unknown page type", this.props.type);
             return;
         }
 
@@ -41,8 +43,7 @@ export default class SaveButton extends React.Component {
     }
 
     render() {
-        if (["publication", "author", "resource"].indexOf(this.props.type) < 0){ return (null)}
-
+        if (["publication", "author", "resource"].indexOf(this.props.type) < 0) { return (null) }
 
         return (<div className={`SaveButton ${this.state.isSaved ? "unsave" : "save"}`}>
             {

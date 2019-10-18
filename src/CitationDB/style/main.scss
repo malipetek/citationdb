@@ -1,68 +1,44 @@
 @import "./fonts";
 @import "./colors";
 
+@import "./bignumber";
+@import "./typography";
+@import "./breadcrumb";
+@import "./topmatter";
+@import "./publication-histogram";
+@import "./resultlist-item";
+// @import "./save-button.scss";
+@import "./Button";
+@import "./homepage";
+@import "./pills";
+
+/** Super-app-level stylization **/
 body {
   background-color: $color-backgroundgray;
   font-family: $font-sans;
 }
 
+.SiteBanner {
+  position: relative;
+  z-index: 1000;
+}
+
+/** App-wide styling **/
+
 .CitationDB {
   font-family: $font-sans;
 
-  .BreadCrumb {
-    color: $color-textgray;
-    font-size: 14px;
-    // font-family: $font-serif;
-
-    .nav-separator,
-    .nav-item {
-      margin-right: 1em;
-      border: 1px solid $color-white;
-      padding: 2px;
-      border-radius: 3px;
-      vertical-align: middle;
-    }
-
-    .nav-item:hover,
-    .nav-separator:hover {
-      background-color: $color-white;
-    }
+  .center {
+    text-align: center;
   }
 
-  section {
-    position: relative;
+  // section
+  .column-wrapper {
     width: 80%;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .module-box .title {
-    font-family: $font-serif;
-  }
-
-  .ResultListItem.footnote {
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 18px;
-
-    .Button {
-      min-width: 80px;
-    }
-  }
-
-  .PublicationHistogram rect.bar {
-    fill: $color-publication-on;
-  }
-
-  .HomePage {
-    .TextInput {
-      text-align: center;
-
-      input {
-        background-color: $color-white;
-      }
-    }
+    position: relative;
   }
 
   a {
@@ -77,34 +53,6 @@ body {
   .page-tray {
     display: flex;
     align-items: center;
-
-  }
-
-  .page-tray{
-    .SaveButton{
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-  }
-
-  .ResultListItem .SaveButton .Button{
-    border-radius: 0px 8px 0px 8px;
-  }
-  .SaveButton.save .Button {
-    background-color: $color-publication-off;
-  }
-
-  .SaveButton.save .Button:hover {
-    background-color: $color-publication-on;
-  }
-
-  .SaveButton.unsave .Button {
-    background-color: $color-author-off;
-  }
-
-  .SaveButton.unsave:hover .Button {
-    background-color: $color-author-on;
   }
 
   .ToggleButton.publications.on .Button {
@@ -117,5 +65,36 @@ body {
 
   .ToggleButton.authors.on .Button {
     background-color: $color-author-on;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .CitationDB {
+    // section
+    .column-wrapper {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: unset;
+    }
+
+    .TopTray {
+      max-width: unset;
+      width: unset;
+    }
+
+    .top-matter {
+      display: unset;
+
+      .left {
+        margin: 20px;
+      }
+      .right {
+        max-width: unset;
+      }
+    }
+
+    .bignumber-tray {
+      justify-content: center;
+    }
   }
 }

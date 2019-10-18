@@ -5,14 +5,16 @@ import entity from "../../Data/enums";
 import "../style/main.scss";
 import Button from "../../Button";
 import SaveButton from "../../SaveButton";
+import pluralize from "pluralize";
 
 class PillTray extends React.Component {
     render() {
         return (
             <div className={`pill-tray-wrapper ${this.props.title}`}>
-                <div className={`pill-tray-title`}>{this.props.items.length} {this.props.title}</div>
 
                 <div className="pill-tray">
+                    <div className={`pill-tray-title`}>{this.props.items.length} {this.props.title}</div>
+
                     {this.props.items.slice(0, 5).map((item, i) => {
                         return (
 
@@ -56,7 +58,6 @@ class ItemHeader extends React.Component {
             <div className="ItemHeader">
                 <div className="badge result-type">[{this.props.type}]</div>
                 {" "}<HeaderLink {...this.props}></HeaderLink>
-                {/* {" "}{this.props.type === "resource" ? <small>{this.props.item.id}</small> : (null)} */}
             </div>
         )
     }
@@ -65,11 +66,19 @@ class ItemHeader extends React.Component {
 class FootnoteFooter extends React.Component {
 
     render() {
-        const publication = Data.publication.byId(this.props.item["publication.id"]);
+        // const publication = Data.publication.byId(this.props.item["publication.id"]);
 
         return (
             <div>
-                {this.props.item.text}
+                {this.props.item.text ? `"${this.props.item.text}"` : (null)}
+                <div>
+                    <span className="metadata light">
+                        {this.props.item.chapter ? `${this.props.item.chapter}, ` : (null)}
+                    </span>
+                    <span className="metadata light">
+                        {this.props.item.page ? `page ${this.props.item.page} ` : (null)}
+                    </span>
+                </div>
             </div>
         )
     }
@@ -79,16 +88,16 @@ class AuthorFooter extends React.Component {
     render() {
         const publications = Data.publication.byAuthor(this.props.item.id);
         const resources = Data.resource.citedByAuthor(this.props.item.id);
-        const footnotes = Data.footnote.byAuthor(this.props.item.id);
+        // const footnotes = Data.footnote.byAuthor(this.props.item.id);
         return (
             <div>
                 <div>
 
-                {/* {resources.length} resources */}
-                <PillTray title="publications" items={publications.map(x => { return { "title": x.title, "link": `/publications/${x.id}` } })} />
+                    {/* {resources.length} resources */}
+                    <PillTray title={pluralize("publications", publications.length)} items={publications.map(x => { return { "title": x.title, "link": `/publications/${x.id}` } })} />
                 </div>
                 <div>
-                <PillTray title="resources cited" items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
+                    <PillTray title={pluralize("resource", resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
                 </div>
                 {/* <div>
                 {footnotes.length} footnotes
@@ -107,9 +116,11 @@ class ResourceFooter extends React.Component {
         return (
             <div>
                 <div>
-                <PillTray title="publications" items={publications.map(x => { return { "title": x.title, "link": `/publications/${x.id}` } })} />
-
-                {/* {footnotes.length > 1 ? `${footnotes.length} citations` : `${footnotes.length} citation`} */}
+                    <span className="metadata light">{this.props.item.id}</span>
+                </div>
+                <div>
+                    <PillTray title={pluralize("publication", publications.length)} items={publications.map(x => { return { "title": x.title, "link": `/publications/${x.id}` } })} />
+                    {/* {footnotes.length > 1 ? `${footnotes.length} citations` : `${footnotes.length} citation`} */}
                 </div>
             </div>
         );
@@ -123,14 +134,15 @@ class PublicationFooter extends React.Component {
         const resources = Data.resource.byPublication(this.props.item.id)
         return (
             <div>
-                <div>
-                    {author.name ? (<span><Link to={`/authors/${author.id}`}>{author.name}</Link></span>) : (null)}
-                    {publication.date ? (<span> // {publication.date}</span>) : (null)}
-                    {publication.publisher ? (<span> // {publication.publisher}</span>) : (null)}
+                <div >
+                    {author.name ? (<span className="metadata"><Link to={`/authors/${author.id}`}>{author.name}</Link></span>) : (null)}
+                    {publication.publisher ? (<span className="metadata light">, {publication.publisher}</span>) : (null)}
+                    {publication.date ? (<span className="metadata light">, {publication.date}</span>) : (null)}
+
 
                 </div>
                 <div>
-                    <PillTray title="resources cited" items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
+                    <PillTray title={pluralize("testimony", resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
                 </div>
                 {/* <div>
                     {this.props.item.date ? this.props.item.date + ", " : (null)}
@@ -167,15 +179,15 @@ export default class ResultListItem extends React.Component {
                     </footer>
                 </div>
                 {
-                    this.props.type === "footnote" ? 
-                    (<a target="_blank" href={this.props.item.uri}>
-                        {/* <div className="button"> view</div> */}
-                        <Button text="View"></Button>
-                        </a>) 
-                    : (null)
+                    this.props.type === "footnote" ?
+                        (<a target="_blank" rel="noopener noreferrer" href={this.props.item.uri}>
+                            {/* <div className="button"> view</div> */}
+                            <Button text="View"></Button>
+                        </a>)
+                        : (null)
                 }
                 {
-                    <SaveButton type={this.props.type} id={this.props.item.id}/>
+                    <SaveButton type={this.props.type} id={this.props.item.id} />
                 }
             </div>
         )

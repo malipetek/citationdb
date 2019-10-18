@@ -1,0 +1,38 @@
+.BreadCrumb {
+    min-height: 32px;
+    color: $color-textgray;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+
+    .breadcrumb-left {
+      display: flex;
+    }
+
+    // .SaveButton .Button,
+    .PinsButton .Button,
+    .HomeButton .Button {
+      //background-color: $color-resource-on;
+      // color: $color-textgray;
+      // border: 1px solid $color-textgray;
+    }
+
+    .PinsButton .Button,
+    .HomeButton .Button {
+      margin-right: 4px;
+    }
+
+    .nav-separator,
+    .nav-item {
+      margin-right: 1em;
+      border: 1px solid $color-white;
+      padding: 2px;
+      border-radius: 3px;
+      vertical-align: middle;
+    }
+
+    .nav-item:hover,
+    .nav-separator:hover {
+      background-color: $color-white;
+    }
+  }

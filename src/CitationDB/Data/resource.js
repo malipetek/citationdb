@@ -64,9 +64,13 @@ class ResourceAPIEndpoint extends BasicAPIEndpoint {
     }
 
 }
+
+const endpoint = new ResourceAPIEndpoint({"fetch-data-url":"data/resource.json"});
+
 /**
  * @memberof module:Data
  * @alias resource
  * @type {Data.ResourceAPIEndpoint}
  */
-export default new ResourceAPIEndpoint(require("./json/resource.json"));
+export default endpoint;
+// export default new ResourceAPIEndpoint(require("./json/resource.json"));

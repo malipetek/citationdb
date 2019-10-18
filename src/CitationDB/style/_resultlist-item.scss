@@ -1,0 +1,81 @@
+.ResultListItem {
+  display: flex;
+
+  &.footnote {
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 18px;
+
+    .Button {
+      border: none;
+      background-color: $color-publication-off;
+      color: white;
+      padding-left: 18px;
+      padding-right: 18px;
+
+      &:hover {
+        background-color: inherit;
+      }
+    }
+  }
+
+  .SaveButton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+    .Button {
+      border-radius: 0px 8px 0px 8px;
+      padding: 0px 6px;
+    }
+
+    &.save {
+      top: -100px;
+    }
+  }
+
+  &:hover {
+    box-shadow: $drop-shadow;
+    border-width: 20px;
+    transition: border-width 0.2s;
+    max-width: 100%;
+
+    .SaveButton.save {
+      top: 0px;
+      transition: top 0.25s ease-in-out;
+    }
+
+    &.footnote {
+      .Button {
+        // background-color: $color-publication-off;
+        // color: $color-white;
+
+        &:hover {
+          background-color: $color-author-on;
+        }
+      }
+    }
+  }
+
+  &.publication {
+    border-color: $color-publication-off;
+    &:hover {
+      border-color: $color-publication-on;
+    }
+  }
+
+  &.author {
+    border-color: $color-author-off;
+    &:hover {
+      border-color: $color-author-on;
+    }
+  }
+
+  &.resource,
+  &.footnote {
+    border-color: $color-resource-off;
+    &:hover {
+      border-color: $color-resource-on;
+    }
+  }
+}

@@ -56,9 +56,12 @@ class PublicationAPIEndPoint extends BasicAPIEndpoint {
 
 }
 
+const endpoint = new PublicationAPIEndPoint({"fetch-data-url":"data/publication.json"});
 /**
  * @memberof module:Data
  * @alias publication
  * @type {Data.PublicationAPIEndpoint}
  */
-export default new PublicationAPIEndPoint(require("./json/publication.json"));
+export default endpoint;
+
+//export default new PublicationAPIEndPoint(require("./json/publication.json"));

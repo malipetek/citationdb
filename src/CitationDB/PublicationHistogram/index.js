@@ -4,14 +4,15 @@ import Data from "../Data"
 export default class extends React.Component {
 
     render() {
+        const data = Data.summarize.yearCounts(
+            this.props.items.filter(item => item.__type === "publication")
+        );
+
+        if (data.length < 1){ return (null)}
         return (
             <div className="PublicationHistogram">
-
-
                 <Histogram
-                    data={Data.summarize.yearCounts(
-                        this.props.items.filter(item => item.__type === "publication")
-                    )}
+                    data={data}
                     minYear={1980}
                     maxYear={2020}
                     margin={{
@@ -21,6 +22,7 @@ export default class extends React.Component {
                         bottom: 20
                     }}
                 ></Histogram>
+                <h6 className="center">Publications by year</h6>
             </div>
         )
     }

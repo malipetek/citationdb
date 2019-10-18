@@ -11,6 +11,7 @@ class FootnoteAPIEndpoint extends BasicAPIEndpoint{
         super(props, x=>publication.byId(x["publication.id"]), _=>entity.footnote);
         this.byPublication = this.byPublication.bind(this);
         this.byAuthor = this.byAuthor.bind(this);
+        this.byResource = this.byResource.bind(this);
     }
 
     /**
@@ -54,4 +55,9 @@ class FootnoteAPIEndpoint extends BasicAPIEndpoint{
  * @alias footnote
  * @type {Data.FootnoteAPIEndpoint}
  */
-export default new FootnoteAPIEndpoint(require("./json/footnote.json"));
+
+const endpoint = new FootnoteAPIEndpoint({"fetch-data-url":"data/footnote.json"});
+export default endpoint;
+
+// old way
+//export default new FootnoteAPIEndpoint(require("./json/footnote.json"));

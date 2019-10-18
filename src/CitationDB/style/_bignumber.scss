@@ -1,0 +1,45 @@
+.bignumber-tray {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.BigNumber {
+  color: $color-textgray;
+
+  .label {
+    font-family: $font-sans;
+    color: $color-textgray;
+  }
+
+  .number{
+    border: 2px solid white;
+    background-color: $color-backgroundgray;
+    font-weight: 600;
+    box-sizing: border-box;
+  }
+
+  &.publications {
+    .number {
+      border-color: $color-publication-on;
+    }
+  }
+
+  &.authors {
+    .number {
+      border-color: $color-author-on;
+    }
+  }
+
+  &.citations{
+    .number{
+      border-color: $color-author-off;
+    }
+  }
+
+  &.testimonies,
+  &.resources {
+    .number {
+      border-color: $color-resource-on;
+    }
+  }
+}

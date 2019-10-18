@@ -1,0 +1,36 @@
+.top-matter-wrapper {
+  width: 100%;
+  max-width: unset;
+  background-color: white;
+  box-sizing: border-box;
+  padding: 40px 10px;
+}
+
+.top-matter {
+  display: flex;
+  flex-wrap: wrap;
+
+  .chunk{
+    margin-top: 1.2em;
+  }
+
+  .left {
+    margin-right: 9px;
+    margin-left: 9px;
+    flex: 2;
+  }
+
+  .right {
+    max-width: 350px;
+    // flex: auto auto 1;
+  }
+}
+
+.top-matter,
+.module-box {
+  .title {
+    font-family: $font-serif;
+    font-weight: 400;
+  }
+}
+

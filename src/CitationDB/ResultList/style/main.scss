@@ -1,80 +1,63 @@
 @import "../../style/colors";
 
-.HomePage .SearchArea,
-.ResultList{
-  
-  // width: 80%;
-  // max-width: 1200px;
-  // margin-left: auto;
-  // margin-right: auto;
+// .HomePage .SearchArea,
+// .ResultListItem.publication {
+//   border-color: $color-publication-off;
+// }
 
-}
+// .ResultListItem.author {
+//   border-color: $color-author-off;
+// }
 
-.ResultListItem.publication {
-  border-color: $color-publication-off;
-}
+// .ResultListItem.resource,
+// .ResultListItem.footnote {
+//   border-color: $color-resource-off;
+//   display: flex;
 
-.ResultListItem.author {
-  border-color: $color-author-off;
-}
+//   .Button {
+//     // background-color: $color-publication-off;
+//     // transition: background-color 1s;
+//   }
+// }
 
-.ResultListItem.resource,
-.ResultListItem.footnote {
-  border-color: $color-resource-off;
-  display: flex;
+// .ResultListItem.publication:hover {
+//   border-color: $color-publication-on;
+// }
 
-  .Button {
-    background-color: $color-publication-off;
-    transition: background-color 1s;
-  }
-}
+// .ResultListItem.author:hover {
+//   border-color: $color-author-on;
+// }
 
-.ResultListItem.publication:hover {
-  border-color: $color-publication-on;
-}
-
-.ResultListItem.author:hover {
-  border-color: $color-author-on;
-}
-
-.ResultListItem.resource:hover,
-.ResultListItem.footnote:hover {
-  border-color: $color-resource-on;
-  .Button {
-    background-color: $color-publication-on;
-  }
-}
+// .ResultListItem.resource:hover,
+// .ResultListItem.footnote:hover {
+//   border-color: $color-resource-on;
+//   .Button {
+//     background-color: $color-publication-on;
+//   }
+// }
 
 .ResultListItem:hover {
-  box-shadow: $drop-shadow;
-  border-width: 20px;
-  transition: border-width 0.2s;
+  // box-shadow: $drop-shadow;
+  // border-width: 20px;
+  // transition: border-width 0.2s;
+  // max-width: 100%;
 
-  .pill-tray-wrapper.resources .pill {
-    border-color: $color-resource-on;
-  }
-
-  .pill-tray-wrapper.publications .pill {
-    border-color: $color-publication-on;
-  }
-
-  .pill-tray-wrapper.author .pill {
-    border-color: $color-author-on;
-  }
-
-  .pill-tray-wrapper .pill{
-    max-width: 1000px;
+  .pill-tray-wrapper .pill {
+    max-width: 100%;
+    box-sizing: border-box;
     transition: max-width 1s;
   }
 }
 
 .ResultListItem {
+  box-sizing: border-box;
+  overflow: hidden;
   border-left: 10px solid $color-white;
-  
+  position: relative;
+
   /**
    * Define the content formatting that's specific to this app
    **/
-
 
   header {
     small.result-type {
@@ -84,6 +67,7 @@
   }
 
   .content-area {
+    max-width: 100%;
     padding: 14px;
     flex: auto;
     align-items: center;
@@ -99,46 +83,24 @@
   footer {
     font-size: 14px;
     color: #444;
-
   }
 
   .pill-tray {
-    display: flex;
-    flex-wrap: wrap;
+    // display: flex;
+    // flex-wrap: wrap;
+    // max-width: 100%;
 
-    .pill {
-      background-color: $color-backgroundgray;
-      transition: border-color 3s;
-      margin: 0px 3px;
-      padding: 0px 4px;
-      // border: 1px solid gray;
-      border-radius: 2px;
-      font-size: 11px;
-      max-width: 100px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      margin-top: 3px;
-    }
   }
 
-  .pill-tray-wrapper .pill {
-    border-left: 3px solid white;
-  }
+  // .pill-tray-wrapper {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   align-items: center;
 
-  .pill-tray-wrapper.resources .pill {
-    border-color: $color-resource-off;
-  }
-
-  .pill-tray-wrapper.publications .pill {
-    border-color: $color-publication-off;
-  }
-
-  .pill-tray-wrapper.author .pill {
-    border-color: $color-author-off;
-  }
-
-  display: flex;
+  //   .pill-tray-title {
+  //     margin-right: 2px;
+  //   }
+  // }
 
   .ItemHeader {
     font-weight: 700;
@@ -148,14 +110,14 @@
     margin-bottom: 11px;
   }
 
-  .badge {
-    font-weight: 400;
-    font-size: 10px;
-    text-transform: uppercase;
-    // color: $color-textgray;
-    margin-right: 6px;
-    padding-right: 3px;
-  }
+  // .badge {
+  //   font-weight: 400;
+  //   font-size: 10px;
+  //   text-transform: uppercase;
+  //   // color: $color-textgray;
+  //   margin-right: 6px;
+  //   padding-right: 3px;
+  // }
 
   .HeaderLink {
     display: flex;
@@ -204,3 +166,9 @@
 //     transform: scale(1.1);
 //     transition: all 10ms;
 //   }
+
+@media only screen and (max-width: 500px) {
+  .ResultListItem .ItemHeader {
+    display: block;
+  }
+}

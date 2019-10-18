@@ -3,7 +3,7 @@ export default function (arr, key=x=>x) {
     const ret =  arr
         .filter(x => { // x is a footnote
             const kx = key(x)
-            if (!x) { return }
+            if (!x) { return null }
             if (loaded.indexOf(kx) >= 0) {
                 return false;
             }

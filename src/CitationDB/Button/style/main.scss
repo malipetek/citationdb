@@ -1,6 +1,7 @@
 @import "../../style/colors";
 
 .Button {
+  box-sizing: border-box;
   display: flex;
   padding: 0px 10px;
   background-color: #efefef;

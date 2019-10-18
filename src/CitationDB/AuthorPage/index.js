@@ -1,36 +1,54 @@
 import React from 'react';
-// import ResultList from "../ResultList";
 import Data from "../Data";
-// import PublicationList from "../PublicationList";
 import ResultList from "../ResultList";
-import SaveButton from "../SaveButton";
+import TopWrapper from "../TopWrapper";
+import BigNumber from "../BigNumber";
 
+/**
+ * Author page, rendered at /authors/:id
+ */
 export default class AuthorPage extends React.Component {
-
 
     render() {
 
         const id = this.props.match.params.id,
             item = Data.publication.byId(id),
-            author = Data.author.byId(item.id);
-        //     footnotes = Data.footnote.byPublication(id);
+            author = Data.author.byId(item.id),
+            publications = Data.publication.byAuthor(id),
+            footnotes = Data.footnote.byAuthor(id)
 
-        const publications = Data.publication.byAuthor(id)
-        console.log(item)
         return (
             <div className="PublicationPage">
-                <section className="module-box">
-                    <h1 className="title">{author.name}</h1>
-                    <div>
-                    </div>
+
+                {TopWrapper(
+                    <React.Fragment>
+                        <div className="left">
+                            <h1 className="title">{author.name}</h1>
+                        </div>
+                        <div className="right">
+                            <div className="bignumber-tray">
+                                <BigNumber
+                                    label="publications"
+                                    labelSingular="publication"
+                                    value={publications.length} />
+                                <BigNumber
+                                    label="citations"
+                                    labelSingular="citation"
+                                    value={footnotes.length} />
+
+                            </div>
+                        </div>
+                    </React.Fragment>,
+                    { id, saveType: "author" }
+                )}
+
+                <section className="column-wrapper">
+                    <ResultList
+                        items={publications}
+                    />
                 </section>
 
-                <section>
-                    <ResultList items={publications}></ResultList>
-                    {/* <PublicationList publications={publications}></PublicationList> */}
-                </section>
             </div>
-
         )
     }
 }

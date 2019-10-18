@@ -3,6 +3,8 @@ import ResultList from "../ResultList";
 import Data from "../Data";
 import SearchArea from "./SearchArea";
 import PublicationHistogram from "../PublicationHistogram";
+import TopWrapper from "../TopWrapper";
+import BigNumber from "../BigNumber";
 
 
 export default class HomePage extends React.Component {
@@ -44,19 +46,26 @@ export default class HomePage extends React.Component {
         const counts = Data.summarize.countByType(items);
         return (
             <div className="HomePage">
-                <section className="prose">
-                    Displaying <span className="stat">{counts.publication} publications</span>
-                    {" "} by <span className="stat">{counts.author} authors</span>
-                    {" "} citing <span className="stat">{counts.resource} testimonies</span>.
-                </section>
 
-                <section className="module-box">
-                    <h1 className="title">Publications by year</h1>
-                    <PublicationHistogram
-                        items={items}
-                    ></PublicationHistogram>
+                {TopWrapper(
+                    <React.Fragment>
+                        <div className="left">
+                            <PublicationHistogram
+                                items={items}
+                            />
 
-                </section>
+                        </div>
+                        <div className="right">
+                            <div className="bignumber-tray">
+                                <BigNumber label="testimonies" value={counts.resource} />
+                                <BigNumber label="publications" value={counts.publication} />
+                                <BigNumber label="authors" value={counts.author} />
+
+                            </div>
+                        </div>
+                    </React.Fragment>
+                    , { id: null })}
+
                 <SearchArea
                     callback={this.setSearchTerm}
                     value={this.state.searchTerm}
@@ -68,7 +77,7 @@ export default class HomePage extends React.Component {
                         }
                     })}
                 ></SearchArea>
-                <section>
+                <section className="column-wrapper">
                     <ResultList
                         items={items}>
                     </ResultList>

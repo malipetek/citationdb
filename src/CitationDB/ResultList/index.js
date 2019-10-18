@@ -1,7 +1,6 @@
 import React from 'react';
 import ResultListItem from "./ResultListItem";
 // import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { Link } from "react-router-dom";
 
 import "./style/main.scss";
 

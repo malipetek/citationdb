@@ -1,7 +1,9 @@
 import React, {useState} from "react";
+import Button from "../Button";
 
 import { getSavedAuthors, getSavedPublications, getSavedResources, subscribe } from "../SavedItemStorage";
-import { HashRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import pluralize from "pluralize";
 
 
 export default function () {
@@ -14,10 +16,10 @@ export default function () {
     const updateCount = () => {
         setCount(getCurrentCount());
     }
-    subscribe(updateCount)
+    subscribe("counter",updateCount)
 
     return (<React.Fragment>
-        {count > 0 ? <Link to="/pins">{count} pins</Link> : (null)}
+        {count > 0 ? (<Link className="PinsButton" to="/pins"><Button text={pluralize("pin", count, true)}></Button></Link>) : (null)}
 
     </React.Fragment>)
 }

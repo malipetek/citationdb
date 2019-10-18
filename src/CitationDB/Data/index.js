@@ -8,7 +8,6 @@ import resource from "./resource";
 import footnote from "./footnote";
 import publication from "./publication";
 import author from "./author";
-import uniqueArray from "./utils/uniqueArray";
 import FussyArray from "./utils/FussyArray";
 import * as summarize from "./summarize";
 
@@ -22,7 +21,6 @@ function search(options) {
     const toggles = options.toggles || {};
     const searchTerm = options.searchTerm || "";
 
-    // let added = [];
     let results = new FussyArray();
 
     function searchEntity(entity, field, api) {
@@ -40,8 +38,6 @@ function search(options) {
             const ret = fofx.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
 
             if (ret){ //&& (added.indexOf(tmpId) < 0)){
-                // added = added.concat(tmpId);
-                // console.log(`Added ${tmpId}`)
                 return true;
             }
 

@@ -7,15 +7,12 @@ export default class BasicAPIEndpoint{
      * @alias Data.BasicAPIEndpoint
      * @param {Object} obj 
      */
-    constructor(obj, headerKey=x=>{}, typeKey=x=>{}){
+    constructor(obj, headerKey=x=>{}, typeKey=x=>{}, fireWhenLoaded=()=>{}){
 
-        // insert a a
-        Object.keys(obj).forEach(k=>{
-            let o = obj[k];
-            o["id"] = k
-            o["__header"] = headerKey(o);
-            o["__type"] = typeKey(o);
-        });
+        this.loaded = false;
+
+        this.headerKey = headerKey.bind(this);
+        this.typeKey = typeKey.bind(this);
 
         this.resourceDictionary = obj;
         this.resourceArray = dictToArray(obj);
@@ -25,6 +22,50 @@ export default class BasicAPIEndpoint{
         this.byId = this.byId.bind(this);
         this.filter = this.filter.bind(this);
         this.find = this.find.bind(this);
+        this.handleData = this.handleData.bind(this);
+        this.fireWhenLoaded = fireWhenLoaded.bind(this);
+        this.hasLoaded = this.hasLoaded.bind(this);
+
+        // If we're given a URL, load that, otherwise
+        // use the object directly as the API content
+        if (obj.hasOwnProperty("fetch-data-url")){
+            // load data asynchronously and ignore the rest
+            const url = obj["fetch-data-url"];
+            fetch(url)
+            .then(res => res.json())
+            .then(
+                (obj)=>this.handleData(obj),
+                (error)=>{console.error("Error loading data " + url, error)}
+            );
+
+        } else {
+            this.handleData(obj);
+        }
+    }
+
+    /**
+     * Determine if the data has loaded
+     */
+    hasLoaded(){ return this.loaded; }
+
+    /**
+     * Handle the data object when it arrives
+     * @param {Object} obj 
+     */
+    handleData(obj){
+        // insert a a
+        Object.keys(obj).forEach(k=>{
+            let o = obj[k];
+            o["id"] = k
+            o["__header"] = this.headerKey(o);
+            o["__type"] = this.typeKey(o);
+        });
+
+        this.resourceDictionary = obj;
+        this.resourceArray = dictToArray(obj);
+        this.loaded = true;
+        this.fireWhenLoaded();
+
     }
     
     /**

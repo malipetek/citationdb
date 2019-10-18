@@ -2,24 +2,16 @@ import React from 'react';
 import Data from "../Data/index";
 import { Page404 } from "../ErrorPages/index";
 import PublicationHistogram from "../PublicationHistogram";
-
-// import PublicationList from "../PublicationList";
-
+import TopWrapper from "../TopWrapper";
 import ResultList from "../ResultList";
+import BigNumber from "../BigNumber";
 
 export default class ResourcePage extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {};
-        // this.isSaved = this.isSaved.bind(this);
-        // this.setSaved = this.setSaved.bind(this);
     }
-
-    // isSaved(){
-    //     const id = this.props.match.params.id;
-    //     return getSavedResources().map(x=>x.id).indexOf(id) >= 0;
-    // }
 
     render() {
         const id = this.props.match.params.id;
@@ -29,31 +21,36 @@ export default class ResourcePage extends React.Component {
             return Page404(this.props.location.pathname);
         }
 
-        //const footnotes = Data.footnote.filter(item => item["resource.id"] === id);
-        // const footnotes = Data.footnote.byResource(id)
         const publications = Data.publication.byResource(id);
+        const footnotes = Data.footnote.byResource(id);
+        
+        console.log("Footnotes", footnotes);
 
         return (
             <div className="ResourcePage">
+                {TopWrapper(
+                    <React.Fragment>
+                        <div className="left">
+                            <h1 className="title">{r.title}</h1>
+                            <div className="chunk metadata">
+                                {r.id}
+                            </div>
+                        </div>
+                        <div className="right">
+                            <PublicationHistogram items={publications}></PublicationHistogram>
+                            <div className="bignumber-tray">
+                                <BigNumber label="citations" value={footnotes.length}></BigNumber>
 
-                <section className="module-box">
-                    <h1 className="title">{r.title}</h1>
-                    <PublicationHistogram items={publications}></PublicationHistogram>
+                                <BigNumber label="publications" value={publications.length}></BigNumber>
+                            </div>
+                        </div>
+                    </React.Fragment>, { id, saveType: "resource" }
+                )}
 
-                </section>
-                <section className="prose">
-                    This testimony is cited in <span className="stat">{publications.length} publications</span>.
-                </section>
-
-
-                <section className="module-box">
-                </section>
-
-                {/* <FootnoteList footnotes={footnotes} /> */}
-                {/* <PublicationList publications={publications} /> */}
-                <section >
+                <section className="column-wrapper">
                     <ResultList items={publications} />
                 </section>
+
             </div>
         );
     }

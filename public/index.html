@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+
+    <link rel="preload" onload="console.log('Loaded')" href="%PUBLIC_URL%/data/author.json" as="fetch" type="application/json" />
+    <link rel="preload" href="%PUBLIC_URL%/data/footnote.json" as="fetch" type="application/json" />
+    <link rel="preload" href="%PUBLIC_URL%/data/publication.json" as="fetch" type="application/json" />
+    <link rel="preload" href="%PUBLIC_URL%/data/resource.json" as="fetch" type="application/json" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <!--

@@ -1,0 +1,29 @@
+.CitationDB {
+  .metadata {
+    font-weight: bold;
+
+    a {
+      color: $color-yaleblack;
+      text-decoration: underline;
+    }
+
+    &.light {
+      font-weight: normal;
+    }
+  }
+}
+
+.badge {
+  font-weight: 400;
+  margin-right: 1em;
+  text-transform: uppercase;
+}
+
+metadata,
+.badge {
+  font-size: 10px;
+}
+
+.metadata a {
+  color: black;
+}
