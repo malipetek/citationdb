@@ -13,7 +13,7 @@ import "./style/main.scss";
 
 export default class extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {};
@@ -22,17 +22,17 @@ export default class extends React.Component {
         // very crude, but works. pool all four data objects
         // until they are loaded
         let loadCounter = 0;
-        let interval = setInterval(()=>{
+        let interval = setInterval(() => {
             loadCounter += 1
 
             let loadedCount = 0;
-            const tables =  [Data.author, Data.publication, Data.footnote, Data.resource];
+            const tables = [Data.author, Data.publication, Data.footnote, Data.resource];
 
-            tables.forEach(table=>{
-                if (table.hasLoaded() === true){ loadedCount++; }
+            tables.forEach(table => {
+                if (table.hasLoaded() === true) { loadedCount++; }
             })
 
-            if (loadedCount === tables.length){
+            if (loadedCount === tables.length) {
                 this.dataHasLoaded();
                 clearInterval(interval);
             } else {
@@ -41,37 +41,54 @@ export default class extends React.Component {
         }, 10);
     }
 
-    dataHasLoaded(){
-        this.setState({loaded: true})
+    componentDidMount() {
+        console.log("Component mounted.")
+        // let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Stash the event so it can be triggered later.
+            // deferredPrompt = e;
+            // Update UI notify the user they can add to home screen
+
+            console.log("Can install")
+            e.prompt()
+            // window.showInstallPromotion();
+            // console.log("Can install", e);
+            console.log(e.prompt)
+        });
+
+    }
+
+    dataHasLoaded() {
+        this.setState({ loaded: true })
     }
 
     render() {
 
-        if (!this.state.loaded){ return <div>Loading...</div>}
+        if (!this.state.loaded) { return <div>Loading...</div> }
 
         return (
             <div className="CitationDB">
                 <Router basename="/">
-                    <Route path="/" component={GenericPage(HomePage)}  exact />
+                    <Route path="/" component={GenericPage(HomePage)} exact />
 
-                    <Route 
-                    path="/publications/:id" 
-                    render={(props) => GenericPage(PublicationPage)({saveType:"publication",...props})} 
+                    <Route
+                        path="/publications/:id"
+                        render={(props) => GenericPage(PublicationPage)({ saveType: "publication", ...props })}
                     />
 
-                    <Route 
-                    path="/resources/:id" 
-                    render={(props) => GenericPage(ResourcePage)({saveType:"resource",...props})} 
+                    <Route
+                        path="/resources/:id"
+                        render={(props) => GenericPage(ResourcePage)({ saveType: "resource", ...props })}
                     />
 
-                    <Route 
-                    path="/authors/:id" 
-                    render={(props) => GenericPage(AuthorPage)({saveType:"author",...props})} 
+                    <Route
+                        path="/authors/:id"
+                        render={(props) => GenericPage(AuthorPage)({ saveType: "author", ...props })}
                     />
-                    
-                    <Route 
-                    path="/pins" 
-                    component={GenericPage(SavedItemsPage)} 
+
+                    <Route
+                        path="/pins"
+                        component={GenericPage(SavedItemsPage)}
                     />
                 </Router>
             </div>
