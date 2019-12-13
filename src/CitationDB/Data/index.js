@@ -10,6 +10,7 @@ import publication from "./publication";
 import author from "./author";
 import FussyArray from "./utils/FussyArray";
 import * as summarize from "./summarize";
+import * as utils from "./utils";
 
 /**
  * Search authors, publications and resources
@@ -45,15 +46,20 @@ function search(options) {
         })
     }
 
+    // search for authors by name
     results.addArray(searchEntity("author", x=>x["name"], author), x=>"author." + x["id"]);
 
-    // Search for publications by author
+
+    // search for resources by title
+    results.addArray(searchEntity("resource", x=>x["title"], resource), x=>"resource." + x["id"])
+
+    // Search for publications by author name
     results.addArray(searchEntity("publication", x=>author.byId(x["author.id"]).name, publication), x=>"publication." + x["id"]);
 
-    results.addArray(searchEntity("resource", x=>x["title"], resource), x=>"resource." + x["id"])
+    // search for publications by title
     results.addArray(searchEntity("publication", x=>x["title"], publication), x=>"publication." + x["id"])
-
-    //results = uniqueArray(results, x=>x["__type"] + "." + x["id"]);
+    
+    // results = uniqueArray(results, x=>x["__type"] + "." + x["id"]);
 
     return results;
 }
@@ -65,4 +71,5 @@ export default {
     resource,
     search,
     summarize,
+    utils
 }

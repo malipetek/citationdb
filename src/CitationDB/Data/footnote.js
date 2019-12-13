@@ -1,6 +1,7 @@
 import BasicAPIEndpoint from "./BasicAPIEndpoint";
 import publication from "./publication";
 import entity from "./enums";
+// import timeStampToSeconds from "./utils/timestampToSeconds";
 
 /**
  * @class Data.FootnoteAPIEndpoint
@@ -48,6 +49,40 @@ class FootnoteAPIEndpoint extends BasicAPIEndpoint{
         return ret;
     }
 
+    /**
+     * This is a helper method to get a URI of a footnote object.
+     * This code is specific to the Fortunoff archive
+     * @param {*} footnote 
+     */
+    getFootnoteURI(footnote){
+
+        /*
+         * example: https://fortunoff.aviaryplatform.com/c/mssa.hvt.0007/2/460
+         */
+
+
+         const aviary_url = "https://fortunoff.aviaryplatform.com/"
+
+        const resourceID = footnote["resource.id"].trim();
+        if (resourceID.indexOf("HVT-") < 0){ return aviary_url; }
+        const mssid = "mssa.hvt." + resourceID.slice(4);
+
+        const videoBaseURL = "https://fortunoff.aviaryplatform.com/c/" + mssid + "/";
+
+
+        // if there's a full time stamp we can use that.
+        if (!footnote["tape"]){ return videoBaseURL}
+        const tape = Number(footnote["tape"]);
+        const start_time = Math.round(footnote["start_time"])//.trim();
+
+        if (!tape || start_time.length < 1){ return videoBaseURL; } 
+
+        // const seconds = timeStampToSeconds(start_time);
+
+        return videoBaseURL + Math.round(tape) + "/" + start_time;
+
+    }
+
 }
 
 /**
@@ -59,5 +94,3 @@ class FootnoteAPIEndpoint extends BasicAPIEndpoint{
 const endpoint = new FootnoteAPIEndpoint({"fetch-data-url":"data/footnote.json"});
 export default endpoint;
 
-// old way
-//export default new FootnoteAPIEndpoint(require("./json/footnote.json"));

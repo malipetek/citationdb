@@ -7,6 +7,8 @@ import Button from "../../Button";
 import SaveButton from "../../SaveButton";
 import pluralize from "pluralize";
 
+import config from "../../config"
+
 class PillTray extends React.Component {
     render() {
         return (
@@ -16,8 +18,8 @@ class PillTray extends React.Component {
                     <div className={`pill-tray-title`}>{this.props.items.length} {this.props.title}</div>
 
                     {this.props.items.slice(0, 5).map((item, i) => {
-                        return (
 
+                        return (
                             <div key={i} className="pill">
                                 <Link to={item.link}>{item.title}</Link>
                             </div>)
@@ -39,7 +41,7 @@ class HeaderLink extends React.Component {
             const resource = Data.resource.byId(this.props.item["resource.id"]);
             return (
                 <div className="HeaderLink">
-                    <div>{resource.title} {f["start_time"] ? `@${f["start_time"]}` : (null)}</div>
+                    <Link to={`/resources/${resource.id}`}>{resource.title} {f["start_time"] ? `@${Data.utils.secondsToTimestamp(f["start_time"])}` : (null)}</Link>
                 </div>)
         }
 
@@ -54,9 +56,14 @@ class HeaderLink extends React.Component {
 
 class ItemHeader extends React.Component {
     render() {
+        let label = this.props.type
+        if (config.words.hasOwnProperty(this.props.type)){
+            label = config.words[label].singular;
+        }
+        
         return (
             <div className="ItemHeader">
-                <div className="badge result-type">[{this.props.type}]</div>
+                <div className="badge result-type">[{label}]</div>
                 {" "}<HeaderLink {...this.props}></HeaderLink>
             </div>
         )
@@ -97,7 +104,7 @@ class AuthorFooter extends React.Component {
                     <PillTray title={pluralize("publications", publications.length)} items={publications.map(x => { return { "title": x.title, "link": `/publications/${x.id}` } })} />
                 </div>
                 <div>
-                    <PillTray title={pluralize("resource", resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
+                    <PillTray title={pluralize(config.words.resource.singular, resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
                 </div>
                 {/* <div>
                 {footnotes.length} footnotes
@@ -130,19 +137,31 @@ class ResourceFooter extends React.Component {
 class PublicationFooter extends React.Component {
     render() {
         const publication = this.props.item;
-        const author = (Data.author.byId(this.props.item["author.id"]) || {});
+        // const authors = (Data.author.byId(this.props.item["author.id"]) || {});
+
+        // Refactored to support multiple authorsd
+        const authorIDs = this.props.item["author.id"] || [];
+        const authors = authorIDs.map(authorID => {
+            let ret = Data.author.byId(authorID) || {};
+            return ret;
+        })
+
         const resources = Data.resource.byPublication(this.props.item.id)
+
         return (
             <div>
                 <div >
-                    {author.name ? (<span className="metadata"><Link to={`/authors/${author.id}`}>{author.name}</Link></span>) : (null)}
+                    {authors.map((author, idx)=>{
+                        return author.name ? (<span key={idx} className="metadata"><Link to={`/authors/${author.id}`}>{author.name}</Link></span>) : (null);
+                    })}
+                    {/* {author.name ? (<span className="metadata"><Link to={`/authors/${author.id}`}>{author.name}</Link></span>) : (null)} */}
                     {publication.publisher ? (<span className="metadata light">, {publication.publisher}</span>) : (null)}
                     {publication.date ? (<span className="metadata light">, {publication.date}</span>) : (null)}
 
 
                 </div>
                 <div>
-                    <PillTray title={pluralize("testimony", resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
+                    <PillTray title={pluralize(config.words.resource.singular, resources.length) + " cited"} items={resources.map(x => { return { "title": x.title, "link": `/resources/${x.id}` } })} />
                 </div>
                 {/* <div>
                     {this.props.item.date ? this.props.item.date + ", " : (null)}
@@ -180,7 +199,12 @@ export default class ResultListItem extends React.Component {
                 </div>
                 {
                     this.props.type === "footnote" ?
-                        (<a target="_blank" rel="noopener noreferrer" href={this.props.item.uri}>
+                        (<a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href={Data.footnote.getFootnoteURI(this.props.item)}
+                        // href={this.props.item.uri}
+                        >
                             {/* <div className="button"> view</div> */}
                             <Button text="View"></Button>
                         </a>)

@@ -2,6 +2,7 @@ import BasicAPIEndpoint from "./BasicAPIEndpoint";
 import footnote from "./footnote";
 // import resource from "./resource";
 import uniqueArray from "./utils/uniqueArray";
+import FussyArray from "./utils/FussyArray";
 
 /** 
  * Adds a byAuthor search convenience method
@@ -30,13 +31,23 @@ class PublicationAPIEndPoint extends BasicAPIEndpoint {
      * @method Data.PublicationAPIEndpoint#byAuthor
      */
     byAuthor(authorId){
-        return  this.filter(x=>x["author.id"] === authorId)
+        //return  this.filter(x=>x["author.id"] === authorId)
+
+        // Refactored to support multiple authors
+        return this.filter(x=>x["author.id"].indexOf(authorId) >= 0)
     }
 
     
     inFootnotes(footnotes){
+
+        // let ret = new FussyArray();
+        // ret.addArray(footnotes.map(x => this.byId(x["publication.id"])))
+
+        // return ret; 
+
         return uniqueArray(
-            footnotes.map(x => this.byId(x["publication.id"]))
+            footnotes.map(x => this.byId(x["publication.id"])),
+            x=>x["id"]
         )
     }
 

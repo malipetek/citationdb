@@ -1,6 +1,8 @@
 import React from 'react';
 import "./style/main.scss";
 
+import config from "../config"
+
 export default class Search extends React.Component {
 
     constructor(props){
@@ -19,7 +21,7 @@ export default class Search extends React.Component {
             <input 
             onChange={this.updateTerm}
             type="text" 
-            placeholder="Search by author, title or testimony..."></input>
+            placeholder={`Search by author, title or ${config.words.resource.singular}...`}></input>
         </div>
         )
     }

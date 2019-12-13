@@ -1,6 +1,8 @@
 import React from "react";
 import { Histogram } from '@bit/jakekara.metadash.viz';
-import Data from "../Data"
+import Data from "../Data";
+import config from "../config";
+
 export default class extends React.Component {
 
     render() {
@@ -13,8 +15,8 @@ export default class extends React.Component {
             <div className="PublicationHistogram">
                 <Histogram
                     data={data}
-                    minYear={1980}
-                    maxYear={2020}
+                    minYear={config.histogram.minYear}
+                    maxYear={config.histogram.maxYear}
                     margin={{
                         top: 10,
                         left: 30,

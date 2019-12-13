@@ -8,7 +8,7 @@ export default class ToggleButton extends React.Component {
         return (
             <div
                 onClick={this.props.handleClick}
-                className={`ToggleButton ${this.props.label} ${this.props.status ? "on" : "off"}`}>
+                className={`ToggleButton ${this.props.itemType} ${this.props.status ? "on" : "off"}`}>
                 <Button text={this.props.label}></Button>
             </div>
         )

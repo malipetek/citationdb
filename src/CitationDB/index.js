@@ -22,6 +22,7 @@ export default class extends React.Component {
         // very crude, but works. pool all four data objects
         // until they are loaded
         let loadCounter = 0;
+        let failCounter = 20;
         let interval = setInterval(() => {
             loadCounter += 1
 
@@ -37,6 +38,11 @@ export default class extends React.Component {
                 clearInterval(interval);
             } else {
                 console.log("Data has not completely loaded yet " + loadCounter)
+                failCounter--;
+                if (failCounter <= 0){
+                    console.log("Bailing X(")
+                    clearInterval(interval)
+                }
             }
         }, 10);
     }
