@@ -13,7 +13,8 @@ jobs:
         if: github.event.issue.title == 'build request from airtable'
         run: |
           build_output=$(echo "Build is test")
-          echo "build_output=$build_output" >> $GITHUB_OUTPUT
+          echo "build_output=$build_output" >> env:$GITHUB_OUTPUT
+          
       - name: get issue number
         id: get_issue_number
         uses: actions/github-script@v6
