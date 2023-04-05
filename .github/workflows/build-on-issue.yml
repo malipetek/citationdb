@@ -11,8 +11,9 @@ jobs:
       - name: Check issue title
         if: github.event.issue.title == 'build request from airtable'
         run: |
-          build_output=$(echo "Build is test")
+          build_output="Build is test"
           echo "${build_output}" | gh issue comment ${github.event.issue.number}
+          echo "::set-env name=BUILD_OUTPUT::${build_output}"
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
@@ -22,4 +23,4 @@ jobs:
           repository: ${{ github.repository }}
           # The number of the issue or pull request in which to create a comment
           issue-number: ${{ github.event.number }}
-          body: ${{ build_output }}
+          body: ${{ env.BUILD_OUTPUT }}
