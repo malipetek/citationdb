@@ -35,10 +35,17 @@ jobs:
           result-encoding: string
       - name: Issue number
         run: echo '${{steps.get_issue_number.outputs.result}}'
+
       - name: Body build
         run: echo '${{ steps.build.vars.outputs.build_output }}'
+        with:
+          build_output: ${{ steps.build.vars.outputs.build_output }}
+
       - name: Body
         run: echo '${{ steps.vars.outputs.build_output }}'
+        with:
+          build_output: ${{ steps.vars.outputs.build_output }}
+
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
