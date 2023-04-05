@@ -14,6 +14,8 @@ jobs:
           build_output="Build is test"
           echo "${build_output}" | gh issue comment ${{ github.event.issue.number }}
           echo "::set-env name=BUILD_OUTPUT::${build_output}"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
