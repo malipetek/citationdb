@@ -1,0 +1,25 @@
+name: Issue opened
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check issue title
+        if: github.event.issue.title == 'build request from airtable'
+        run: |
+          build_output=$(echo "Build is test")
+          echo "${build_output}" | gh issue comment ${github.event.issue.number}
+      - name: comment-actions
+        uses: GrantBirki/comment@v2.0.3
+        with:
+          # GITHUB_TOKEN or a repo scoped PAT
+          token: ${{ github.token }}
+          # The full name of the repository in which to create or update a comment
+          repository: ${{ github.repository }}
+          # The number of the issue or pull request in which to create a comment
+          issue-number: ${{ github.event.number }}
+          body: ${{ build_output }}
