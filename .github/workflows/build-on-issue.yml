@@ -49,9 +49,11 @@ jobs:
         run: echo ${{ needs.build.outputs.BUILD_OUTPUT }}
 
       - name: Comment on issue
-        uses: peter-evans/comment@v1.3.1
+        uses: GrantBirki/comment@v2.0.3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          issue-number: ${{steps.get_issue_number.outputs.result}}
           body: ${{ needs.build.outputs.BUILD_OUTPUT }}
         env:
           build_output: ${{ needs.build.outputs.BUILD_OUTPUT }}
