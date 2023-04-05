@@ -58,4 +58,6 @@ jobs:
           body: $build_output
         env:
           build_output: ${{needs.job1.outputs.build_output}}
+    permissions:
+      issues: write
 
