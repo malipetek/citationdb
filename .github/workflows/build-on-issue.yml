@@ -45,7 +45,7 @@ jobs:
         run: echo '${{steps.get_issue_number.outputs.result}}'
 
       - name: Body
-        run: echo '${{ build_output }}'
+        run: echo '${{ $build_output }}'
         env:
           build_output: ${{needs.build.outputs.build_output}}
       
