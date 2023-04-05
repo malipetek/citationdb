@@ -31,6 +31,8 @@ jobs:
               ).data[0].number;
             }
           result-encoding: string
+      - name: Issue number
+        run: echo '${{steps.get_issue_number.outputs.result}}'
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
