@@ -14,6 +14,7 @@ jobs:
           build_output=$(echo "Build is test")
           echo "build_output=$build_output" >> $GITHUB_OUTPUT
       - name: get issue number
+        id: get_issue_number
         uses: actions/github-script@v6
         with:
           script: |
