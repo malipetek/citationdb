@@ -13,7 +13,7 @@ jobs:
         if: github.event.issue.title == 'build request from airtable'
         run: |
           build_output=$(echo "Build is test")
-          echo "build_output=$build_output" >> env:$GITHUB_OUTPUT
+          echo "build_output=$build_output" >> $GITHUB_ENV
     outputs:
       build_output: ${{ steps.build.outputs.build_output }}
 
@@ -55,9 +55,5 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ steps.build.vars.outputs.build_output }}
-    env:
-      GH_TOKEN: ${{ github.token }}
-      build_output: ${{needs.job1.outputs.build_output}}
-    
+          body: $build_output
 
