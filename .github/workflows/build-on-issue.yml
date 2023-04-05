@@ -56,4 +56,6 @@ jobs:
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
           body: $build_output
+        env:
+          build_output: ${{needs.job1.outputs.build_output}}
 
