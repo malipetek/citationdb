@@ -37,12 +37,12 @@ jobs:
         run: echo '${{steps.get_issue_number.outputs.result}}'
 
       - name: Body build
-        run: echo '${{ build_output }}'
+        run: echo '${{ env.build_output }}'
         env:
           build_output: ${{ steps.build.vars.outputs.build_output }}
 
       - name: Body
-        run: echo '${{ build_output }}'
+        run: echo '${{ env.build_output }}'
         env:
           build_output: ${{ steps.vars.outputs.build_output }}
 
