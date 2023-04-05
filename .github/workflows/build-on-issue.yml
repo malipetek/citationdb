@@ -16,12 +16,9 @@ jobs:
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
-          # GITHUB_TOKEN or a repo scoped PAT
           token: ${{ github.token }}
-          # The full name of the repository in which to create or update a comment
           repository: ${{ github.repository }}
-          # The number of the issue or pull request in which to create a comment
-          issue-number: ${{ github.event.number }}
+          issue-number: ${{ github.event.issue_number }}
           body: ${{ steps.vars.outputs.build_output }}
         env:
           GH_TOKEN: ${{ github.token }}
