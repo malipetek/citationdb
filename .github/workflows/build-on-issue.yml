@@ -11,8 +11,7 @@ jobs:
       - name: Check issue title
         if: github.event.issue.title == 'build request from airtable'
         run: |
-          build_output="Build is test"
-          echo "${build_output}" | gh issue comment ${{ github.event.issue.number }}
+          build_output=$(echo "Build is test")
           echo "::set-env name=BUILD_OUTPUT::${build_output}"
         env:
           GH_TOKEN: ${{ github.token }}
