@@ -46,6 +46,8 @@ jobs:
 
       - name: Body
         run: echo '${{ build_output }}'
+        env:
+          build_output: ${{needs.build.outputs.build_output}}
       
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
