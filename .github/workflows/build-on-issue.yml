@@ -48,16 +48,18 @@ jobs:
         run: echo $build_output
         env:
           build_output: ${{needs.job1.outputs.build_output}}
-      
+      - name: debug
+        uses: hmarr/debug-action@v2
+        
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ env.build_output }}
+          body: ${{ needs.job1.outputs.build_output }}
         env:
-          build_output: ${{needs.job1.outputs.build_output}}
+          build_output: ${{ needs.job1.outputs.build_output }}
     permissions:
       issues: write
 
