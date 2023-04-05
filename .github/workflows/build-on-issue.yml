@@ -13,12 +13,30 @@ jobs:
         run: |
           build_output=$(echo "Build is test")
           echo "build_output=$build_output" >> $GITHUB_OUTPUT
+      - name: get issue number
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (context.issue.number) {
+              // Return issue number if present
+              return context.issue.number;
+            } else {
+              // Otherwise return issue number from commit
+              return (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0].number;
+            }
+          result-encoding: string
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          issue-number: ${{ github.event.issue_number }}
+          issue-number: ${{steps.get_issue_number.outputs.result}}
           body: ${{ steps.vars.outputs.build_output }}
         env:
           GH_TOKEN: ${{ github.token }}
