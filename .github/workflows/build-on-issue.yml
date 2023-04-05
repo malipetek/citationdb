@@ -15,7 +15,7 @@ jobs:
           build_output=$(echo "Build is test")
           echo "build_output=$build_output" >> $GITHUB_ENV
     outputs:
-      build_output: ${{ steps.build.outputs.build_output }}
+      BUILD_OUTPUT: ${{ steps.build.outputs.build_output }}
 
   report:
     runs-on: ubuntu-latest
@@ -45,9 +45,9 @@ jobs:
         run: echo '${{steps.get_issue_number.outputs.result}}'
 
       - name: Body
-        run: echo $build_output
+        run: echo $BUILD_OUTPUT
         env:
-          build_output: ${{needs.job1.outputs.build_output}}
+          BUILD_OUTPUT: ${{needs.build.outputs.BUILD_OUTPUT}}
       - name: debug
         uses: hmarr/debug-action@v2
         
@@ -57,7 +57,7 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ needs.build.outputs.build_output }}
+          body: ${{ needs.build.outputs.BUILD_OUTPUT }}
     permissions:
       issues: write
 
