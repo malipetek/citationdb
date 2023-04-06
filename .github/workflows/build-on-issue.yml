@@ -28,9 +28,9 @@ jobs:
 
   report:
     runs-on: ubuntu-latest
-    needs: build
+    needs: check_request
     env:
-      BUILD_OUTPUT: ${{ needs.build.outputs.BUILD_OUTPUT }}
+      BUILD_OUTPUT: ${{ needs.check_request.outputs.BUILD_OUTPUT }}
     steps:
       - name: get issue number
         id: get_issue_number
@@ -58,7 +58,7 @@ jobs:
       - name: Body
         run: echo $BUILD_OUTPUT
         env:
-          BUILD_OUTPUT: ${{needs.build.outputs.BUILD_OUTPUT}}
+          BUILD_OUTPUT: ${{needs.check_request.outputs.BUILD_OUTPUT}}
       - name: debug
         uses: hmarr/debug-action@v2
         
@@ -68,7 +68,7 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ needs.build.outputs.BUILD_OUTPUT }}
+          body: ${{ needs.check_request.outputs.BUILD_OUTPUT }}
     permissions:
       issues: write
 
