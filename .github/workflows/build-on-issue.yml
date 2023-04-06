@@ -103,6 +103,7 @@ jobs:
   build_result:
     runs-on: ubuntu-latest
     needs: build-and-deploy
+    if: always()
     steps:
       - name: get issue number
         id: get_issue_number
