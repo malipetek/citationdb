@@ -41,15 +41,18 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: main
-      - name: Checkout private tools
+      - name: Get Metadash Modules
         uses: actions/checkout@v3
         with:
           repository: yale-fortunoff/metadash
           path: metadash
       # Move some folders to src of main repo
-      - name: Move folders
+      - name: Move Folders
         run: |
-          mv metadash/src/* main/src
+          mv metadash/src/FortunoffApp main/src/FortunoffApp
+          mv metadash/src/Inputs main/src/Inputs
+          mv metadash/src/SiteBanner main/src/SiteBanner
+          mv metadash/src/Viz main/src/Viz
           rm -rf metadash
       - name: Install dependencies
         run: |
