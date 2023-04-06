@@ -66,7 +66,11 @@ jobs:
         id: deploy
         run: |
           cd main
-          echo "BUILD_OUTPUT=$(yarn deploy)" >> $GITHUB_OUTPUT
+          message=$(cat << EOF
+          yarn deploy
+          EOF
+          )
+          echo BUILD_OUTPUT=$message >> $GITHUB_OUTPUT
     outputs:
       BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
     env:
