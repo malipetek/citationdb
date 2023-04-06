@@ -62,14 +62,12 @@ jobs:
         id: build
         run: |
           cd main
-          MESSAGE=$(((yarn deploy) 2>&1) || true)
-          echo "name=BUILD_OUTPUT::$MESSAGE" >> $GITHUB_OUTPUT
+          yarn build
       - name: Deploy and Export Output
         id: deploy
         run: |
           cd main
-          MESSAGE=$(((yarn deploy) 2>&1) || true)
-          echo "name=DEPLOY_OUTPUT::$MESSAGE" >> $GITHUB_OUTPUT
+          yarn deploy
 
     outputs:
       BUILD_OUTPUT: ${{ steps.build.outputs.BUILD_OUTPUT }}
@@ -145,7 +143,7 @@ jobs:
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
           # concat with deploy oputput: needs.build-and-deploy.outputs.BUILD_OUTPUT
-          body: ${{ format('{0}\\n{1}', needs.build-and-deploy.outputs.BUILD_OUTPUT, needs.build-and-deploy.outputs.DEPLOY_OUTPUT)  }}
+          body: "## Deployed to 👉 https://malipetek.github.io/metadash2"
           # close the issue
     permissions:
       issues: write
