@@ -44,7 +44,7 @@ jobs:
       - name: Get Metadash Modules
         uses: actions/checkout@v3
         with:
-          repository: yale-fortunoff/metadash
+          repository: malipetek/metadash2
           path: metadash
       # Move some folders to src of main repo
       - name: Move Folders
