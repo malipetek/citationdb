@@ -21,7 +21,7 @@ jobs:
         if: steps.check-app-connection.outputs.app-connection == 'true' && github.event.issue.title == 'build request from airtable'
         id: build
         run: |
-          msg=$('starting build')
+          msg=$(echo "starting build")
           echo "check_result=$msg" >> $GITHUB_OUTPUT
       - name: Check issue title
         if: steps.check-app-connection.outputs.app-connection == 'false' && github.event.issue.title == 'build request from airtable'
