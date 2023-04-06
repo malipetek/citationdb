@@ -71,6 +71,7 @@ jobs:
       BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
     env:
       AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+      CI: false
       
   report:
     runs-on: ubuntu-latest
