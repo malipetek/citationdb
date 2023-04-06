@@ -21,14 +21,14 @@ jobs:
         if: steps.check-app-connection.outputs.app-connection == 'true' && github.event.issue.title == 'build request from airtable'
         id: build
         run: |
-          check_result=$('starting build')
-          echo "check_result=$check_result" >> $GITHUB_OUTPUT
+          msg=$('starting build')
+          echo "check_result=$msg" >> $GITHUB_OUTPUT
       - name: Check issue title
         if: steps.check-app-connection.outputs.app-connection == 'false' && github.event.issue.title == 'build request from airtable'
         id: reject
         run: |
-          check_result=$(echo "Wont build, because this issue is not coming from airtable connection")
-          echo "check_result=$check_result" >> $GITHUB_OUTPUT
+          msg=$(echo "Wont build, because this issue is not coming from airtable connection")
+          echo "check_result=$msg" >> $GITHUB_OUTPUT
     outputs:
       CHECK_RESUlT: ${{ steps.build.outputs.check_result || steps.reject.outputs.check_result }}
 
