@@ -1,4 +1,6 @@
 require('dotenv').config();
+const path = require('path');
+
 if (process.env.AIRTABLE_TOKEN === undefined) {
   console.error('Please set the AIRTABLE_TOKEN environment variable');
   process.exit(1);
@@ -16,7 +18,7 @@ async function downloadTable(tableName) {
   const records = await base(tableName).select().all();
   const jsonRecords = records.map(record => record._rawJson.fields);
   // save json files
-  fs.writeFileSync(`./src/CitationDB/Data/from_airtable/${tableName}.json`, JSON.stringify(jsonRecords, null, 2));
+  fs.writeFileSync(path.resolve(__dirname, `./src/CitationDB/Data/from_airtable/${tableName}.json`), JSON.stringify(jsonRecords, null, 2));
 }
 
 

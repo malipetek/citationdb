@@ -1,9 +1,10 @@
 const fs = require('fs');
+const path = require('path');
 
 /***********
  * AUTHORS *
  ***********/
-const AuthorSource = require('./src/CitationDB/Data/from_airtable/Author.json');
+const AuthorSource = require(path.resolve(__dirname, './src/CitationDB/Data/from_airtable/Author.json'));
 const authorTarget = {};
 
 for (const obj of AuthorSource) {
@@ -15,12 +16,12 @@ for (const obj of AuthorSource) {
   };
 }
 
-fs.writeFileSync('./src/CitationDB/Data/json/author.json', JSON.stringify(authorTarget, null, 2));
+fs.writeFileSync(path.resolve(__dirname, './src/CitationDB/Data/json/author.json'), JSON.stringify(authorTarget, null, 2));
 
 /*************
  * FOOTNOTES *
  *************/
-const FootnoteSource = require('./src/CitationDB/Data/from_airtable/Footnote.json');
+const FootnoteSource = require(path.resolve(__dirname, './src/CitationDB/Data/from_airtable/Footnote.json'));
 const footnoteTarget = {};
 
 FootnoteSource.forEach((obj, index) => {
@@ -42,12 +43,12 @@ FootnoteSource.forEach((obj, index) => {
   };
 });
 
-fs.writeFileSync('./src/CitationDB/Data/json/footnote.json', JSON.stringify(footnoteTarget, null, 2));
+fs.writeFileSync(path.resolve(__dirname, './src/CitationDB/Data/json/footnote.json'), JSON.stringify(footnoteTarget, null, 2));
 
 /*************
  * RESOURCES *
  *************/
-const resourceSource = require('./src/CitationDB/Data/from_airtable/Resource.json');
+const resourceSource = require(path.resolve(__dirname, './src/CitationDB/Data/from_airtable/Resource.json'));
 const resourceTarget = {};
 
 resourceSource.forEach(item => {
@@ -56,12 +57,12 @@ resourceSource.forEach(item => {
   }
 });
 
-fs.writeFileSync('./src/CitationDB/Data/json/resource.json', JSON.stringify(resourceTarget, null, 2));
+fs.writeFileSync(path.resolve(__dirname, './src/CitationDB/Data/json/resource.json'), JSON.stringify(resourceTarget, null, 2));
 
 /****************
  * PUBLICATIONS *
  ****************/
-const publicationSource = require('./src/CitationDB/Data/from_airtable/Publication.json');
+const publicationSource = require(path.resolve(__dirname, './src/CitationDB/Data/from_airtable/Publication.json'));
 const publicationTarget = {};
 
 for (const item of publicationSource) {
@@ -83,4 +84,4 @@ for (const item of publicationSource) {
   };
 }
 
-fs.writeFileSync('./src/CitationDB/Data/json/publication.json', JSON.stringify(publicationTarget, null, 2));
+fs.writeFileSync(path.resolve(__dirname, './src/CitationDB/Data/json/publication.json'), JSON.stringify(publicationTarget, null, 2));
