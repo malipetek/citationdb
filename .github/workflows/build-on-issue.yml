@@ -67,7 +67,7 @@ jobs:
         run: |
           cd main
           message=$(yarn deploy 2>&1)
-          echo BUILD_OUTPUT=$message >> $GITHUB_OUTPUT
+          echo "BUILD_OUTPUT=$message" >> $GITHUB_OUTPUT
     outputs:
       BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
     env:
