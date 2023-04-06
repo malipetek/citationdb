@@ -29,7 +29,7 @@
     "start": "react-scripts start",
     "data:download": "node ./download_airtable.js",
     "data:convert": "node ./convert_airtable_data.js",
-    "prebuild": "run-s data:*",
+    "prebuild": "npx run-s data:*",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
