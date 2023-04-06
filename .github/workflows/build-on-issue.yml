@@ -74,11 +74,13 @@ jobs:
           cd main
           git config user.name "Github Actions Bot"
 
-      - name: Deploy and Export Output
-        id: deploy
-        run: |
-          cd main
-          yarn deploy
+      - name: Deploy to GitHub Pages
+        uses: Cecilapp/GitHub-Pages-deploy@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          email: support+actions@github.com
+          build_dir: build
 
     outputs:
       BUILD_OUTPUT: ${{ steps.build.outputs.BUILD_OUTPUT }}
