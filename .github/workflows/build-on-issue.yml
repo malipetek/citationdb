@@ -11,7 +11,7 @@ jobs:
       - name: Check if issue is from Airtable app connection
         id: check-app-connection
         run: |
-          if [[ "${{ github.event.issue.source.app.name }}" == "airtable" ]]; then
+          if [[ "${{ github.event.issue.performed_via_github_app.slug }}" == "airtable-connector" ]]; then
             echo "app-connection=true" >> $GITHUB_OUTPUT
           else
             echo "app-connection=false" >> $GITHUB_OUTPUT
@@ -22,6 +22,12 @@ jobs:
         id: build
         run: |
           a=$(echo "Build is test")
+          echo "build_output=$a" >> $GITHUB_OUTPUT
+      - name: Check issue title
+        if: steps.check-app-connection.outputs.app-connection == 'false' && github.event.issue.title == 'build request from airtable'
+        id: reject
+        run: |
+          a=$(echo "Wont build, because this issue is not coming from airtable connection")
           echo "build_output=$a" >> $GITHUB_OUTPUT
     outputs:
       BUILD_OUTPUT: ${{ steps.build.outputs.build_output }}
