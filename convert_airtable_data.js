@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 var filetree = require('filetree.js');
 
@@ -11,6 +11,13 @@ const tree =filetree({
 });
 
 console.log(JSON.stringify(tree, null, 2));
+
+/**************
+ * ENSURE DIR *
+ **************/
+
+fs.ensureDirSync(path.resolve(__dirname, './src/CitationDB/Data/json/'));
+
 /***********
  * AUTHORS *
  ***********/

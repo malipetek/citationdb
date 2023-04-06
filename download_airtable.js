@@ -7,7 +7,7 @@ if (process.env.AIRTABLE_TOKEN === undefined) {
 }
 
 const Airtable = require('airtable');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 Airtable.configure({
   apiKey: process.env.AIRTABLE_TOKEN
@@ -18,6 +18,7 @@ async function downloadTable(tableName) {
   const records = await base(tableName).select().all();
   const jsonRecords = records.map(record => record._rawJson.fields);
   // save json files
+  fs.ensureDirSync(path.resolve(__dirname, `./src/CitationDB/Data/from_airtable`));
   fs.writeFileSync(path.resolve(__dirname, `./src/CitationDB/Data/from_airtable/${tableName}.json`), JSON.stringify(jsonRecords, null, 2));
 }
 
