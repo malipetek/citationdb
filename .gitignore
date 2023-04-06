@@ -24,3 +24,7 @@ yarn-error.log*
 
 # jsdocs
 docs
+.vscode/launch.json
+package.json
+.env
+yarn.lock

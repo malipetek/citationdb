@@ -21,22 +21,50 @@ jobs:
         if: steps.check-app-connection.outputs.app-connection == 'true' && github.event.issue.title == 'build request from airtable'
         id: build
         run: |
-          a=$(echo "Build is test")
-          echo "build_output=$a" >> $GITHUB_OUTPUT
+          check_result=$('starting build')
+          echo "check_result=$check_result" >> $GITHUB_OUTPUT
       - name: Check issue title
         if: steps.check-app-connection.outputs.app-connection == 'false' && github.event.issue.title == 'build request from airtable'
         id: reject
         run: |
-          a=$(echo "Wont build, because this issue is not coming from airtable connection")
-          echo "build_output=$a" >> $GITHUB_OUTPUT
+          check_result=$(echo "Wont build, because this issue is not coming from airtable connection")
+          echo "check_result=$check_result" >> $GITHUB_OUTPUT
     outputs:
-      BUILD_OUTPUT: ${{ steps.build.outputs.build_output || steps.reject.outputs.build_output }}
+      CHECK_RESUlT: ${{ steps.build.outputs.check_result || steps.reject.outputs.check_result }}
 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: check_request
+    if: needs.check_request.outputs.CHECK_RESUlT == 'starting build'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: main
+      - name: Checkout private tools
+        uses: actions/checkout@v3
+        with:
+          repository: yale-fortunoff/metadash
+          path: metadash
+      # Move some folders to src of main repo
+      - name: Move folders
+        run: |
+          mv metadash/src/* main/src
+          rm -rf metadash
+      - name: Install dependencies
+        run: |
+          cd main
+          yarn install
+      - name: Deploy and Export Output
+        id: deploy
+        run: |
+          echo "BUILD_OUTPUT=$(yarn deploy)" >> $GITHUB_OUTPUT
+    outputs:
+      BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
+      
   report:
     runs-on: ubuntu-latest
     needs: check_request
-    env:
-      BUILD_OUTPUT: ${{ needs.check_request.outputs.BUILD_OUTPUT }}
     steps:
       - name: get issue number
         id: get_issue_number
@@ -57,24 +85,50 @@ jobs:
               ).data[0].number;
             }
           result-encoding: string
-      
-      - name: Issue number
-        run: echo '${{steps.get_issue_number.outputs.result}}'
 
-      - name: Body
-        run: echo $BUILD_OUTPUT
-        env:
-          BUILD_OUTPUT: ${{needs.check_request.outputs.BUILD_OUTPUT}}
-      - name: debug
-        uses: hmarr/debug-action@v2
-        
       - name: comment-actions
         uses: GrantBirki/comment@v2.0.3
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ needs.check_request.outputs.BUILD_OUTPUT }}
+          body: ${{ needs.check_request.outputs.CHECK_RESUlT }}
+          # close the issue
+    permissions:
+      issues: write
+
+  build_result:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    steps:
+      - name: get issue number
+        id: get_issue_number
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (context.issue.number) {
+              // Return issue number if present
+              return context.issue.number;
+            } else {
+              // Otherwise return issue number from commit
+              return (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0].number;
+            }
+          result-encoding: string
+
+      - name: comment-actions
+        uses: GrantBirki/comment@v2.0.3
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          issue-number: ${{steps.get_issue_number.outputs.result}}
+          body: ${{ needs.build-and-deploy.outputs.BUILD_OUTPUT }}
+          # close the issue
     permissions:
       issues: write
 

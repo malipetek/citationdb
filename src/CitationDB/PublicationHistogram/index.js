@@ -1,5 +1,5 @@
 import React from "react";
-import { Histogram } from '@bit/jakekara.metadash.viz';
+import { Histogram } from '../../Viz';
 import Data from "../Data";
 import config from "../config";
 

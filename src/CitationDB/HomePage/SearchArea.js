@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput } from "@bit/jakekara.metadash.inputs";
+import { TextInput } from "../../Inputs";
 import ToggleButton from "../ToggleButton";
 import pluralize from "pluralize";
 
