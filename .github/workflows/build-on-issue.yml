@@ -62,6 +62,8 @@ jobs:
           echo "BUILD_OUTPUT=$(yarn deploy)" >> $GITHUB_OUTPUT
     outputs:
       BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
+    env:
+      AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
       
   report:
     runs-on: ubuntu-latest
