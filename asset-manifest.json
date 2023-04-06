@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/build/static/css/main.640b25b9.css",
+    "main.js": "/build/static/js/main.5219c337.js",
+    "static/media/yalenew-roman-webfont.woff": "/build/static/media/yalenew-roman-webfont.dc72385855adfe8187c3.woff",
+    "static/media/yalenew-roman-webfont.woff2": "/build/static/media/yalenew-roman-webfont.077c9e0f95bf605a4aa8.woff2",
+    "index.html": "/build/index.html",
+    "static/media/search-icon.svg": "/build/static/media/search-icon.6d9f1e898233f035a54c.svg",
+    "static/media/x-circle-icon.svg": "/build/static/media/x-circle-icon.8adc6e0810ab6f4276d0.svg",
+    "static/media/x-field.svg": "/build/static/media/x-field.969f699306abc4a0bc88.svg",
+    "static/media/dropdown-arrow.svg": "/build/static/media/dropdown-arrow.1e266fb2b54355eb942d.svg",
+    "main.640b25b9.css.map": "/build/static/css/main.640b25b9.css.map",
+    "main.5219c337.js.map": "/build/static/js/main.5219c337.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.640b25b9.css",
+    "static/js/main.5219c337.js"
+  ]
+}
