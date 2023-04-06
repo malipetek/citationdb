@@ -30,7 +30,7 @@ jobs:
           a=$(echo "Wont build, because this issue is not coming from airtable connection")
           echo "build_output=$a" >> $GITHUB_OUTPUT
     outputs:
-      BUILD_OUTPUT: ${{ steps.build.outputs.build_output }}
+      BUILD_OUTPUT: ${{ steps.build.outputs.build_output || steps.reject.outputs.build_output }}
 
   report:
     runs-on: ubuntu-latest
