@@ -80,7 +80,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           email: support+actions@github.com
-          build_dir: build
+          build_dir: main/build
 
     outputs:
       BUILD_OUTPUT: ${{ steps.build.outputs.BUILD_OUTPUT }}
