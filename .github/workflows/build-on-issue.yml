@@ -59,17 +59,21 @@ jobs:
           cd main
           yarn install
       - name: Build Static Site
+        id: build
         run: |
           cd main
-          yarn build
+          MESSAGE=$(((yarn deploy) 2>&1) || true)
+          echo "name=BUILD_OUTPUT::$MESSAGE" >> $GITHUB_OUTPUT
       - name: Deploy and Export Output
         id: deploy
         run: |
           cd main
-          message=$(yarn deploy 2>&1)
-          echo "BUILD_OUTPUT=$message" >> $GITHUB_OUTPUT
+          MESSAGE=$(((yarn deploy) 2>&1) || true)
+          echo "name=DEPLOY_OUTPUT::$MESSAGE" >> $GITHUB_OUTPUT
+
     outputs:
-      BUILD_OUTPUT: ${{ steps.deploy.outputs.BUILD_OUTPUT }}
+      BUILD_OUTPUT: ${{ steps.build.outputs.BUILD_OUTPUT }}
+      DEPLOY_OUTPUT: ${{ steps.deploy.outputs.DEPLOY_OUTPUT }}
     env:
       AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
       CI: false
@@ -140,7 +144,8 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           issue-number: ${{steps.get_issue_number.outputs.result}}
-          body: ${{ needs.build-and-deploy.outputs.BUILD_OUTPUT }}
+          # concat with deploy oputput: needs.build-and-deploy.outputs.BUILD_OUTPUT
+          body: ${{ format('{0}\\n{1}', needs.build-and-deploy.outputs.BUILD_OUTPUT, needs.build-and-deploy.outputs.DEPLOY_OUTPUT)  }}
           # close the issue
     permissions:
       issues: write
