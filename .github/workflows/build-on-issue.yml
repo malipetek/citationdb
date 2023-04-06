@@ -5,12 +5,21 @@ on:
     types: [opened]
 
 jobs:
-  build:
+  check_request:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if issue is from Airtable app connection
+        id: check-app-connection
+        run: |
+          if [[ "${{ github.event.issue.source.app.name }}" == "airtable" ]]; then
+            echo "app-connection=true" >> $GITHUB_OUTPUT
+          else
+            echo "app-connection=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Check issue title
+        if: steps.check-app-connection.outputs.app-connection == 'true' && github.event.issue.title == 'build request from airtable'
         id: build
-        if: github.event.issue.title == 'build request from airtable'
         run: |
           a=$(echo "Build is test")
           echo "build_output=$a" >> $GITHUB_OUTPUT
