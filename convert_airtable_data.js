@@ -1,6 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+var filetree = require('filetree.js');
 
+const tree =filetree({
+  path: path.resolve(__dirname, './src/CitationDB/Data/'),
+  maxDepth: 4,
+  exclude: ['node_modules', 'bower_components'],
+  all: true,
+  indent: true
+});
+
+console.log(JSON.stringify(tree, null, 2));
 /***********
  * AUTHORS *
  ***********/
