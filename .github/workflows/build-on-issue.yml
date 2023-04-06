@@ -66,9 +66,13 @@ jobs:
 
       # set git user for deployment
       - name: set git email
-        run:  git config user.email "support+actions@github.com"
+        run:  |
+          cd main
+          git config user.email "support+actions@github.com"
       - name: set git user
-        run: git config user.name "Github Actions Bot"
+        run: |
+          cd main
+          git config user.name "Github Actions Bot"
 
       - name: Deploy and Export Output
         id: deploy
